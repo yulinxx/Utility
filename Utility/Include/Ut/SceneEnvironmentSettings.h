@@ -71,6 +71,7 @@ namespace Ut
         Ut::Color textColor;
         Ut::Color borderColor;
 
+        int   fontSizePt = 10;
         int   majorTickLen = 10;
         int   minorTickLen = 6;
         int   mediumTickLen = 8;

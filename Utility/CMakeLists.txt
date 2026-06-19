@@ -2,6 +2,19 @@ cmake_minimum_required(VERSION 3.20)
 
 set(LIB_NAME "Utility")
 
+if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/../../CMake/Utils.cmake")
+    include("${CMAKE_CURRENT_SOURCE_DIR}/../../CMake/Utils.cmake")
+endif()
+
+# 版本号定义
+set(VERSION_MAJOR 1)
+set(VERSION_MINOR 0)
+set(VERSION_PATCH 0)
+set(PROJECT_VERSION_MAJOR ${VERSION_MAJOR})
+set(PROJECT_VERSION_MINOR ${VERSION_MINOR})
+set(PROJECT_VERSION_PATCH ${VERSION_PATCH})
+set(PROJECT_VERSION "${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}")
+
 # 收集所有源文件和头文件
 file(GLOB_RECURSE UTILITY_SOURCES CONFIGURE_DEPENDS
     "${CMAKE_CURRENT_SOURCE_DIR}/Src/*.cpp"
@@ -15,17 +28,15 @@ file(GLOB_RECURSE UTILITY_HEADERS CONFIGURE_DEPENDS
     "${CMAKE_CURRENT_SOURCE_DIR}/Include/*.hpp"
 )
 
-# 创建动态库
+find_path(BSHOSHANY_THREAD_POOL_INCLUDE_DIRS "BS_thread_pool.hpp")
+
 add_library(${LIB_NAME} SHARED
     ${UTILITY_SOURCES}
     ${UTILITY_HEADERS}
 )
 
-# 在 VS 项目中按头文件和源文件分类
-source_group(TREE "${CMAKE_CURRENT_SOURCE_DIR}" PREFIX "Header Files" FILES ${UTILITY_HEADERS})
-source_group(TREE "${CMAKE_CURRENT_SOURCE_DIR}" PREFIX "Source Files" FILES ${UTILITY_SOURCES})
+source_group(TREE "${CMAKE_CURRENT_SOURCE_DIR}" FILES ${UTILITY_SOURCES} ${UTILITY_HEADERS})
 
-# 添加头文件目录
 target_include_directories(${LIB_NAME}
     PUBLIC
         "${CMAKE_CURRENT_SOURCE_DIR}/Include"
@@ -35,12 +46,12 @@ target_include_directories(${LIB_NAME}
         "${CMAKE_CURRENT_SOURCE_DIR}/Include/Mat"
         "${CMAKE_CURRENT_SOURCE_DIR}/Include/Vec"
         "${CMAKE_SOURCE_DIR}/Log/Log/Include"
+        ${BSHOSHANY_THREAD_POOL_INCLUDE_DIRS}
 )
 
 # C++ 标准
 target_compile_features(${LIB_NAME} PUBLIC cxx_std_17)
 
-# 链接 Log 库 —— 所有依赖 Utility 的模块自动继承
 target_link_libraries(${LIB_NAME}
     PUBLIC
         Log
@@ -55,7 +66,12 @@ if(MSVC)
     target_compile_options(${LIB_NAME} PRIVATE /utf-8)
 endif()
 
-# 项目配置信息输出
-message(STATUS "  [Core/Utility]")
-message(STATUS "    Library: ${LIB_NAME}")
-message(STATUS "    Version: 1.0.0")
+sanyi_add_version_info(${LIB_NAME} "${LIB_NAME}" "Core Utility Library")
+
+message(STATUS "[${LIB_NAME}]")
+message(STATUS "  Library: ${LIB_NAME}")
+message(STATUS "  Version: ${PROJECT_VERSION}")
+message(STATUS "  Platform: ${CMAKE_SYSTEM_NAME}(${CMAKE_SYSTEM_PROCESSOR})")
+message(STATUS "  Build Type: ${CMAKE_BUILD_TYPE}")
+message(STATUS "")
+message(STATUS "----------------------------------------")
