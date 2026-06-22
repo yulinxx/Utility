@@ -68,6 +68,13 @@ namespace Ut
                 && pt[2] >= minPt[2] && pt[2] <= maxPt[2];
         }
 
+        bool contains(const BBox3& other) const
+        {
+            return minPt[0] <= other.minPt[0] && maxPt[0] >= other.maxPt[0]
+                && minPt[1] <= other.minPt[1] && maxPt[1] >= other.maxPt[1]
+                && minPt[2] <= other.minPt[2] && maxPt[2] >= other.maxPt[2];
+        }
+
         Vec<T, 3> center() const
         {
             return Vec<T, 3>(
