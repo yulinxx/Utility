@@ -1,41 +1,48 @@
 cmake_minimum_required(VERSION 3.20)
 
+# --- 模块元信息 ---
 set(LIB_NAME "Utility")
+set(LIB_FOLDER "Core")
+set(LIB_DESCRIPTION "Core Utility Library")
+set(LIB_EXPORT_MACRO "UTILITY_EXPORTS")
 
-if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/../../CMake/Utils.cmake")
-    include("${CMAKE_CURRENT_SOURCE_DIR}/../../CMake/Utils.cmake")
-endif()
-
-# 版本号定义
+# --- 版本（按模块独立）---
 set(VERSION_MAJOR 1)
 set(VERSION_MINOR 0)
 set(VERSION_PATCH 0)
-set(PROJECT_VERSION_MAJOR ${VERSION_MAJOR})
-set(PROJECT_VERSION_MINOR ${VERSION_MINOR})
-set(PROJECT_VERSION_PATCH ${VERSION_PATCH})
 set(PROJECT_VERSION "${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}")
 
-# 收集所有源文件和头文件
-file(GLOB_RECURSE UTILITY_SOURCES CONFIGURE_DEPENDS
+# --- 路径 ---
+if(NOT SANYI_ROOT)
+    get_filename_component(SANYI_ROOT "${CMAKE_CURRENT_SOURCE_DIR}/../.." ABSOLUTE)
+endif()
+include("${SANYI_ROOT}/CMake/SanYiPaths.cmake")
+include("${SANYI_ROOT}/CMake/Utils.cmake")
+
+# --- 源文件 ---
+file(GLOB_RECURSE LIB_SOURCES CONFIGURE_DEPENDS
     "${CMAKE_CURRENT_SOURCE_DIR}/Src/*.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/Src/*.cxx"
     "${CMAKE_CURRENT_SOURCE_DIR}/Src/*.cc"
     "${CMAKE_CURRENT_SOURCE_DIR}/Src/*.c"
 )
-
-file(GLOB_RECURSE UTILITY_HEADERS CONFIGURE_DEPENDS
+file(GLOB_RECURSE LIB_HEADERS CONFIGURE_DEPENDS
     "${CMAKE_CURRENT_SOURCE_DIR}/Include/*.h"
     "${CMAKE_CURRENT_SOURCE_DIR}/Include/*.hpp"
 )
+list(FILTER LIB_SOURCES EXCLUDE REGEX "${SANYI_SOURCE_EXCLUDE_REGEX}")
+list(FILTER LIB_HEADERS EXCLUDE REGEX "${SANYI_HEADER_EXCLUDE_REGEX}")
+list(LENGTH LIB_SOURCES LIB_SOURCES_COUNT)
+list(LENGTH LIB_HEADERS LIB_HEADERS_COUNT)
 
 find_path(BSHOSHANY_THREAD_POOL_INCLUDE_DIRS "BS_thread_pool.hpp")
 
 add_library(${LIB_NAME} SHARED
-    ${UTILITY_SOURCES}
-    ${UTILITY_HEADERS}
+    ${LIB_SOURCES}
+    ${LIB_HEADERS}
 )
 
-source_group(TREE "${CMAKE_CURRENT_SOURCE_DIR}" FILES ${UTILITY_SOURCES} ${UTILITY_HEADERS})
+source_group(TREE "${CMAKE_CURRENT_SOURCE_DIR}" FILES ${LIB_SOURCES} ${LIB_HEADERS})
 
 target_include_directories(${LIB_NAME}
     PUBLIC
@@ -45,25 +52,24 @@ target_include_directories(${LIB_NAME}
         "${CMAKE_CURRENT_SOURCE_DIR}/Include/Color"
         "${CMAKE_CURRENT_SOURCE_DIR}/Include/Mat"
         "${CMAKE_CURRENT_SOURCE_DIR}/Include/Vec"
-        "${CMAKE_SOURCE_DIR}/Log/Log/Include"
+        "${SANYI_LOG_DIR}/Include"
         ${BSHOSHANY_THREAD_POOL_INCLUDE_DIRS}
 )
 
-# C++ 标准
 target_compile_features(${LIB_NAME} PUBLIC cxx_std_17)
 
-target_link_libraries(${LIB_NAME}
-    PUBLIC
-        Log
+set_target_properties(${LIB_NAME} PROPERTIES
+    FOLDER "${LIB_FOLDER}"
+    DEBUG_POSTFIX "_d"
 )
 
-# 导出宏定义
-target_compile_definitions(${LIB_NAME} PRIVATE UTILITY_EXPORTS)
+target_compile_definitions(${LIB_NAME} PRIVATE ${LIB_EXPORT_MACRO})
 target_compile_definitions(${LIB_NAME} PUBLIC UTILITY_EXTERN_TEMPLATES)
 
-# MSVC 编译选项
 if(MSVC)
-    target_compile_options(${LIB_NAME} PRIVATE /utf-8)
+    target_compile_options(${LIB_NAME} PRIVATE /utf-8 /FS)
+else()
+    target_compile_options(${LIB_NAME} PRIVATE -Wall -Wextra -Wpedantic)
 endif()
 
 option(BUILD_UTILITY_TESTS "Build Utility unit tests" OFF)
@@ -74,11 +80,11 @@ if(BUILD_UTILITY_TESTS)
     add_subdirectory(Test)
 endif()
 
-sanyi_add_version_info(${LIB_NAME} "${LIB_NAME}" "Core Utility Library")
+sanyi_add_version_info(${LIB_NAME} "${LIB_NAME}" "${LIB_DESCRIPTION}")
 
 message(STATUS "[${LIB_NAME}]")
-message(STATUS "  Library: ${LIB_NAME}")
 message(STATUS "  Version: ${PROJECT_VERSION}")
+# message(STATUS "  Sources: ${LIB_SOURCES_COUNT}  Headers: ${LIB_HEADERS_COUNT}")
 message(STATUS "  Platform: ${CMAKE_SYSTEM_NAME}(${CMAKE_SYSTEM_PROCESSOR})")
 message(STATUS "  Build Type: ${CMAKE_BUILD_TYPE}")
 if(BUILD_UTILITY_TESTS)
@@ -86,5 +92,4 @@ if(BUILD_UTILITY_TESTS)
 else()
     message(STATUS "  Tests: DISABLED")
 endif()
-message(STATUS "")
 message(STATUS "----------------------------------------")
