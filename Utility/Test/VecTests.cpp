@@ -7,7 +7,7 @@
 
 using namespace Ut;
 
-// ==================== Vec2d 构造函数测�?====================
+// ==================== Vec2d 构造函数测试 ====================
 
 TEST(Vec2dTest, DefaultConstructor)
 {
@@ -38,7 +38,7 @@ TEST(Vec2dTest, CopyConstructor)
     EXPECT_DOUBLE_EQ(v2.y(), 2.0);
 }
 
-// ==================== Vec2d 访问器测�?====================
+// ==================== Vec2d 访问器测试 ====================
 
 TEST(Vec2dTest, IndexAccess)
 {
@@ -122,7 +122,7 @@ TEST(Vec2dTest, Negation)
     EXPECT_DOUBLE_EQ(result.y(), 4.0);
 }
 
-// ==================== Vec2d 复合赋值测�?====================
+// ==================== Vec2d 复合赋值测试 ====================
 
 TEST(Vec2dTest, AdditionAssignment)
 {
@@ -252,7 +252,7 @@ TEST(Vec2dTest, DistanceSquared)
     EXPECT_DOUBLE_EQ(v1.distanceSquared(v2), 25.0);
 }
 
-// ==================== Vec2d 归一化测�?====================
+// ==================== Vec2d 归一化测试 ====================
 
 TEST(Vec2dTest, Normalized)
 {
@@ -355,7 +355,7 @@ TEST(Vec2dTest, Reflect)
     EXPECT_DOUBLE_EQ(result.y(), 1.0);
 }
 
-// ==================== Vec2d 插值测�?====================
+// ==================== Vec2d 插值测试 ====================
 
 TEST(Vec2dTest, Lerp)
 {

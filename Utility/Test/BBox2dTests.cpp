@@ -6,7 +6,7 @@
 
 using namespace Ut;
 
-// ==================== BBox2d 构造函数测�?====================
+// ==================== BBox2d 构造函数测试 ====================
 
 TEST(BBox2dTest, DefaultConstructor)
 {
@@ -67,7 +67,7 @@ TEST(BBox2dTest, CopyConstructor)
     EXPECT_EQ(bbox1.maxPt, bbox2.maxPt);
 }
 
-// ==================== BBox2d 基本属性测�?====================
+// ==================== BBox2d 基本属性测试 ====================
 
 TEST(BBox2dTest, Width)
 {
@@ -297,7 +297,7 @@ TEST(BBox2dTest, DeflatedTooMuch)
     EXPECT_FALSE(result.isValid());
 }
 
-// ==================== BBox2d 比较运算符测�?====================
+// ==================== BBox2d 比较运算符测试 ====================
 
 TEST(BBox2dTest, Equality)
 {
