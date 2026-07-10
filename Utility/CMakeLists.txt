@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.20)
+﻿cmake_minimum_required(VERSION 4.3)
 
 # --- 模块元信息 ---
 set(LIB_NAME "Utility")
@@ -52,7 +52,6 @@ target_include_directories(${LIB_NAME}
         "${CMAKE_CURRENT_SOURCE_DIR}/Include/Color"
         "${CMAKE_CURRENT_SOURCE_DIR}/Include/Mat"
         "${CMAKE_CURRENT_SOURCE_DIR}/Include/Vec"
-        "${SANYI_LOG_DIR}/Include"
         ${BSHOSHANY_THREAD_POOL_INCLUDE_DIRS}
 )
 

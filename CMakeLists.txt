@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.20)
+﻿cmake_minimum_required(VERSION 4.3)
 
 include(../Config.txt)
 include(${CMAKE_CURRENT_LIST_DIR}/../CMake/StandaloneInit.cmake)
