@@ -14,13 +14,6 @@
 #else
 #define UTILITY_API
 #endif
-// MacOS
-#elif defined(__APPLE__)
-#ifdef UTILITY_EXPORTS
-#define UTILITY_API __attribute__((visibility("default")))
-#else
-#define UTILITY_API
-#endif
 #else
 #define UTILITY_API
 #endif

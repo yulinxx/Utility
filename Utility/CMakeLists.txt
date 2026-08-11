@@ -32,20 +32,20 @@ file(GLOB_RECURSE LIB_HEADERS CONFIGURE_DEPENDS
 )
 list(FILTER LIB_SOURCES EXCLUDE REGEX "${SANYI_SOURCE_EXCLUDE_REGEX}")
 list(FILTER LIB_HEADERS EXCLUDE REGEX "${SANYI_HEADER_EXCLUDE_REGEX}")
-list(LENGTH LIB_SOURCES LIB_SOURCES_COUNT)
-list(LENGTH LIB_HEADERS LIB_HEADERS_COUNT)
 
 find_path(BSHOSHANY_THREAD_POOL_INCLUDE_DIRS "BS_thread_pool.hpp")
 
-add_library(${LIB_NAME} SHARED
-    ${LIB_SOURCES}
-    ${LIB_HEADERS}
-)
-
-source_group(TREE "${CMAKE_CURRENT_SOURCE_DIR}" FILES ${LIB_SOURCES} ${LIB_HEADERS})
-
-target_include_directories(${LIB_NAME}
-    PUBLIC
+# --- 统一入口创建 DLL ---
+sanyi_add_shared_library(${LIB_NAME}
+    FOLDER "${LIB_FOLDER}"
+    DESCRIPTION "${LIB_DESCRIPTION}"
+    EXPORT_MACRO "${LIB_EXPORT_MACRO}"
+    VERSION_MAJOR ${VERSION_MAJOR}
+    VERSION_MINOR ${VERSION_MINOR}
+    VERSION_PATCH ${VERSION_PATCH}
+    SOURCES ${LIB_SOURCES}
+    HEADERS ${LIB_HEADERS}
+    PUBLIC_INCLUDE_DIRS
         "${CMAKE_CURRENT_SOURCE_DIR}/Include"
         "${CMAKE_CURRENT_SOURCE_DIR}/Include/Ut"
         "${CMAKE_CURRENT_SOURCE_DIR}/Include/BBox"
@@ -55,21 +55,8 @@ target_include_directories(${LIB_NAME}
         ${BSHOSHANY_THREAD_POOL_INCLUDE_DIRS}
 )
 
-target_compile_features(${LIB_NAME} PUBLIC cxx_std_17)
-
-set_target_properties(${LIB_NAME} PROPERTIES
-    FOLDER "${LIB_FOLDER}"
-    DEBUG_POSTFIX "_d"
-)
-
-target_compile_definitions(${LIB_NAME} PRIVATE ${LIB_EXPORT_MACRO})
+# PUBLIC 暴露模板显式实例化开关（同时作用于库自身与使用者）
 target_compile_definitions(${LIB_NAME} PUBLIC UTILITY_EXTERN_TEMPLATES)
-
-if(MSVC)
-    target_compile_options(${LIB_NAME} PRIVATE /utf-8 /FS)
-else()
-    target_compile_options(${LIB_NAME} PRIVATE -Wall -Wextra -Wpedantic)
-endif()
 
 option(BUILD_UTILITY_TESTS "Build Utility unit tests" OFF)
 
@@ -79,11 +66,8 @@ if(BUILD_UTILITY_TESTS)
     add_subdirectory(Test)
 endif()
 
-sanyi_add_version_info(${LIB_NAME} "${LIB_NAME}" "${LIB_DESCRIPTION}")
-
 message(STATUS "[${LIB_NAME}]")
 message(STATUS "  Version: ${PROJECT_VERSION}")
-# message(STATUS "  Sources: ${LIB_SOURCES_COUNT}  Headers: ${LIB_HEADERS_COUNT}")
 message(STATUS "  Platform: ${CMAKE_SYSTEM_NAME}(${CMAKE_SYSTEM_PROCESSOR})")
 message(STATUS "  Build Type: ${CMAKE_BUILD_TYPE}")
 if(BUILD_UTILITY_TESTS)
