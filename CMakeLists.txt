@@ -1,6 +1,6 @@
 ﻿cmake_minimum_required(VERSION 4.3)
 
-include(../Config.txt)
+include(../Config.cmake)
 include(${CMAKE_CURRENT_LIST_DIR}/../CMake/StandaloneInit.cmake)
 
 project(SanYiCore
