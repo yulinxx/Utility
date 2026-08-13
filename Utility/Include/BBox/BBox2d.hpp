@@ -7,11 +7,11 @@
 #include <limits>
 
 #ifndef UT_EXTERN_TEMPLATE
-#ifdef UTILITY_EXTERN_TEMPLATES
-#define UT_EXTERN_TEMPLATE extern
-#else
-#define UT_EXTERN_TEMPLATE
-#endif
+    #ifdef UTILITY_EXTERN_TEMPLATES
+        #define UT_EXTERN_TEMPLATE extern
+    #else
+        #define UT_EXTERN_TEMPLATE
+    #endif
 #endif
 
 namespace Ut
@@ -20,7 +20,7 @@ namespace Ut
      * @brief 2D 轴对齐包围盒 (Axis-Aligned Bounding Box)
      * @tparam T 数据类型 (float, double等)
      */
-    template <typename T>
+    template<typename T>
     class BBox2
     {
     public:
@@ -147,22 +147,21 @@ namespace Ut
         /// 检查点是否在包围盒内
         bool contains(const Vec<T, 2>& point) const
         {
-            return point.x() >= minPt.x() && point.x() <= maxPt.x() &&
-                point.y() >= minPt.y() && point.y() <= maxPt.y();
+            return point.x() >= minPt.x() && point.x() <= maxPt.x() && point.y() >= minPt.y() && point.y() <= maxPt.y();
         }
 
         /// 检查另一个包围盒是否完全在此包围盒内
         bool contains(const BBox2& other) const
         {
-            return other.minPt.x() >= minPt.x() && other.maxPt.x() <= maxPt.x() &&
-                other.minPt.y() >= minPt.y() && other.maxPt.y() <= maxPt.y();
+            return other.minPt.x() >= minPt.x() && other.maxPt.x() <= maxPt.x() && other.minPt.y() >= minPt.y() &&
+                other.maxPt.y() <= maxPt.y();
         }
 
         /// 检查是否与另一个包围盒相交
         bool intersects(const BBox2& other) const
         {
-            return minPt.x() <= other.maxPt.x() && maxPt.x() >= other.minPt.x() &&
-                minPt.y() <= other.maxPt.y() && maxPt.y() >= other.minPt.y();
+            return minPt.x() <= other.maxPt.x() && maxPt.x() >= other.minPt.x() && minPt.y() <= other.maxPt.y() &&
+                maxPt.y() >= other.minPt.y();
         }
 
         /// 获取与另一个包围盒的交集
@@ -170,14 +169,12 @@ namespace Ut
         {
             if (!intersects(other))
             {
-                return BBox2(); // 返回无效包围盒
+                return BBox2();  // 返回无效包围盒
             }
-            return BBox2(
-                std::max(minPt.x(), other.minPt.x()),
+            return BBox2(std::max(minPt.x(), other.minPt.x()),
                 std::max(minPt.y(), other.minPt.y()),
                 std::min(maxPt.x(), other.maxPt.x()),
-                std::min(maxPt.y(), other.maxPt.y())
-            );
+                std::min(maxPt.y(), other.maxPt.y()));
         }
 
         /// 获取包含两个包围盒的最小包围盒 (并集)
@@ -193,10 +190,7 @@ namespace Ut
         /// 按指定量扩展包围盒（各边向外扩展）
         BBox2 inflated(T amount) const
         {
-            return BBox2(
-                minPt.x() - amount, minPt.y() - amount,
-                maxPt.x() + amount, maxPt.y() + amount
-            );
+            return BBox2(minPt.x() - amount, minPt.y() - amount, maxPt.x() + amount, maxPt.y() + amount);
         }
 
         /// 按指定量收缩包围盒（各边向内收缩）
@@ -225,7 +219,7 @@ namespace Ut
     using Box = BBox2<double>;
     using Rect = BBox2<double>;
     using Range = BBox2<double>;
-} // namespace Ut
+}  // namespace Ut
 
 // 显式实例化声明
 UT_EXTERN_TEMPLATE template class Ut::BBox2<float>;

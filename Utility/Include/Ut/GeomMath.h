@@ -80,7 +80,9 @@ namespace Ut
         {
             double dR = std::fmod(a, 2.0 * M_PI);
             if (dR < 0.0)
+            {
                 dR += 2.0 * M_PI;
+            }
             return dR;
         }
 
@@ -89,7 +91,9 @@ namespace Ut
         {
             double dR = std::fmod(a + M_PI, 2.0 * M_PI);
             if (dR < 0.0)
+            {
                 dR += 2.0 * M_PI;
+            }
             return dR - M_PI;
         }
 
@@ -119,9 +123,15 @@ namespace Ut
         /** 返回 -1, 0, 1 */
         static inline int sign(double v, double tol = DOUBLE_EPSILON)
         {
-            if (v > tol) return 1;
-            if (v < -tol) return -1;
+            if (v > tol)
+            {
+                return 1;
+            }
+            if (v < -tol)
+            {
+                return -1;
+            }
             return 0;
         }
     };
-} // namespace Ut
+}  // namespace Ut

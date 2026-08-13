@@ -178,6 +178,6 @@ namespace Ut
         static void HSLtoRGB(float h, float s, float l, float& r, float& g, float& b);
 
     private:
-        float m_data[4]; // RGBA分量数组，[r, g, b, a]
+        float m_data[4];  // RGBA分量数组，[r, g, b, a]
     };
-}
+}  // namespace Ut

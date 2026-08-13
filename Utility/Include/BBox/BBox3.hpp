@@ -10,7 +10,7 @@ namespace Ut
     /**
      * @brief 3D 轴对齐包围盒 (Axis-Aligned Bounding Box)
      */
-    template <typename T>
+    template<typename T>
     class BBox3
     {
     public:
@@ -29,7 +29,8 @@ namespace Ut
         }
 
         BBox3(T minX, T minY, T minZ, T maxX, T maxY, T maxZ)
-            : minPt(minX, minY, minZ), maxPt(maxX, maxY, maxZ)
+            : minPt(minX, minY, minZ)
+            , maxPt(maxX, maxY, maxZ)
         {
         }
 
@@ -63,32 +64,25 @@ namespace Ut
 
         bool contains(const Vec<T, 3>& pt) const
         {
-            return pt[0] >= minPt[0] && pt[0] <= maxPt[0]
-                && pt[1] >= minPt[1] && pt[1] <= maxPt[1]
-                && pt[2] >= minPt[2] && pt[2] <= maxPt[2];
+            return pt[0] >= minPt[0] && pt[0] <= maxPt[0] && pt[1] >= minPt[1] && pt[1] <= maxPt[1] &&
+                pt[2] >= minPt[2] && pt[2] <= maxPt[2];
         }
 
         bool contains(const BBox3& other) const
         {
-            return minPt[0] <= other.minPt[0] && maxPt[0] >= other.maxPt[0]
-                && minPt[1] <= other.minPt[1] && maxPt[1] >= other.maxPt[1]
-                && minPt[2] <= other.minPt[2] && maxPt[2] >= other.maxPt[2];
+            return minPt[0] <= other.minPt[0] && maxPt[0] >= other.maxPt[0] && minPt[1] <= other.minPt[1] &&
+                maxPt[1] >= other.maxPt[1] && minPt[2] <= other.minPt[2] && maxPt[2] >= other.maxPt[2];
         }
 
         Vec<T, 3> center() const
         {
             return Vec<T, 3>(
-                (minPt[0] + maxPt[0]) * T(0.5),
-                (minPt[1] + maxPt[1]) * T(0.5),
-                (minPt[2] + maxPt[2]) * T(0.5));
+                (minPt[0] + maxPt[0]) * T(0.5), (minPt[1] + maxPt[1]) * T(0.5), (minPt[2] + maxPt[2]) * T(0.5));
         }
 
         Vec<T, 3> size() const
         {
-            return Vec<T, 3>(
-                maxPt[0] - minPt[0],
-                maxPt[1] - minPt[1],
-                maxPt[2] - minPt[2]);
+            return Vec<T, 3>(maxPt[0] - minPt[0], maxPt[1] - minPt[1], maxPt[2] - minPt[2]);
         }
 
         T diagonal() const
@@ -104,12 +98,11 @@ namespace Ut
 
         bool intersects(const BBox3& other) const
         {
-            return minPt[0] <= other.maxPt[0] && maxPt[0] >= other.minPt[0]
-                && minPt[1] <= other.maxPt[1] && maxPt[1] >= other.minPt[1]
-                && minPt[2] <= other.maxPt[2] && maxPt[2] >= other.minPt[2];
+            return minPt[0] <= other.maxPt[0] && maxPt[0] >= other.minPt[0] && minPt[1] <= other.maxPt[1] &&
+                maxPt[1] >= other.minPt[1] && minPt[2] <= other.maxPt[2] && maxPt[2] >= other.minPt[2];
         }
     };
 
     using BBox3f = BBox3<float>;
     using BBox3d = BBox3<double>;
-} // namespace Ut
+}  // namespace Ut

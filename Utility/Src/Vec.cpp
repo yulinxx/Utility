@@ -10,4 +10,4 @@ namespace Ut
     template class Vec<double, 3>;
     template class Vec<float, 4>;
     template class Vec<double, 4>;
-}
+}  // namespace Ut

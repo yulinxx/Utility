@@ -117,14 +117,14 @@ TEST(BBox2dTest, ExpandByPoint)
 {
     BBox2d bbox;
     EXPECT_FALSE(bbox.isValid());
-    
+
     bbox.expand(Vec2d(1.0, 2.0));
     EXPECT_TRUE(bbox.isValid());
     EXPECT_DOUBLE_EQ(bbox.minPt.x(), 1.0);
     EXPECT_DOUBLE_EQ(bbox.minPt.y(), 2.0);
     EXPECT_DOUBLE_EQ(bbox.maxPt.x(), 1.0);
     EXPECT_DOUBLE_EQ(bbox.maxPt.y(), 2.0);
-    
+
     bbox.expand(Vec2d(3.0, 0.0));
     EXPECT_DOUBLE_EQ(bbox.minPt.x(), 1.0);
     EXPECT_DOUBLE_EQ(bbox.minPt.y(), 0.0);
@@ -173,7 +173,7 @@ TEST(BBox2dTest, ContainsBBox)
     BBox2d outer(0.0, 0.0, 10.0, 10.0);
     BBox2d inner(2.0, 2.0, 8.0, 8.0);
     BBox2d overlap(5.0, 5.0, 15.0, 15.0);
-    
+
     EXPECT_TRUE(outer.contains(inner));
     EXPECT_FALSE(inner.contains(outer));
     EXPECT_FALSE(outer.contains(overlap));
@@ -194,7 +194,7 @@ TEST(BBox2dTest, Intersects)
     BBox2d bbox2(5.0, 5.0, 15.0, 15.0);
     BBox2d bbox3(11.0, 11.0, 20.0, 20.0);
     BBox2d bbox4(-5.0, -5.0, -1.0, -1.0);
-    
+
     EXPECT_TRUE(bbox1.intersects(bbox2));
     EXPECT_TRUE(bbox2.intersects(bbox1));
     EXPECT_FALSE(bbox1.intersects(bbox3));
@@ -222,7 +222,7 @@ TEST(BBox2dTest, Intersection)
     BBox2d bbox1(0.0, 0.0, 10.0, 10.0);
     BBox2d bbox2(5.0, 5.0, 15.0, 15.0);
     BBox2d result = bbox1.intersection(bbox2);
-    
+
     EXPECT_TRUE(result.isValid());
     EXPECT_DOUBLE_EQ(result.minPt.x(), 5.0);
     EXPECT_DOUBLE_EQ(result.minPt.y(), 5.0);
@@ -243,7 +243,7 @@ TEST(BBox2dTest, IntersectionCompleteOverlap)
     BBox2d bbox1(0.0, 0.0, 10.0, 10.0);
     BBox2d bbox2(2.0, 2.0, 8.0, 8.0);
     BBox2d result = bbox1.intersection(bbox2);
-    
+
     EXPECT_TRUE(result.isValid());
     EXPECT_DOUBLE_EQ(result.minPt.x(), 2.0);
     EXPECT_DOUBLE_EQ(result.minPt.y(), 2.0);
@@ -258,7 +258,7 @@ TEST(BBox2dTest, United)
     BBox2d bbox1(0.0, 0.0, 5.0, 5.0);
     BBox2d bbox2(3.0, 3.0, 10.0, 10.0);
     BBox2d result = bbox1.united(bbox2);
-    
+
     EXPECT_TRUE(result.isValid());
     EXPECT_DOUBLE_EQ(result.minPt.x(), 0.0);
     EXPECT_DOUBLE_EQ(result.minPt.y(), 0.0);
@@ -272,7 +272,7 @@ TEST(BBox2dTest, Inflated)
 {
     BBox2d bbox(0.0, 0.0, 10.0, 10.0);
     BBox2d result = bbox.inflated(2.0);
-    
+
     EXPECT_DOUBLE_EQ(result.minPt.x(), -2.0);
     EXPECT_DOUBLE_EQ(result.minPt.y(), -2.0);
     EXPECT_DOUBLE_EQ(result.maxPt.x(), 12.0);
@@ -283,7 +283,7 @@ TEST(BBox2dTest, Deflated)
 {
     BBox2d bbox(0.0, 0.0, 10.0, 10.0);
     BBox2d result = bbox.deflated(2.0);
-    
+
     EXPECT_DOUBLE_EQ(result.minPt.x(), 2.0);
     EXPECT_DOUBLE_EQ(result.minPt.y(), 2.0);
     EXPECT_DOUBLE_EQ(result.maxPt.x(), 8.0);
@@ -304,7 +304,7 @@ TEST(BBox2dTest, Equality)
     BBox2d bbox1(0.0, 0.0, 10.0, 10.0);
     BBox2d bbox2(0.0, 0.0, 10.0, 10.0);
     BBox2d bbox3(0.0, 0.0, 11.0, 10.0);
-    
+
     EXPECT_TRUE(bbox1 == bbox2);
     EXPECT_FALSE(bbox1 == bbox3);
 }
@@ -314,7 +314,7 @@ TEST(BBox2dTest, Inequality)
     BBox2d bbox1(0.0, 0.0, 10.0, 10.0);
     BBox2d bbox2(0.0, 0.0, 10.0, 10.0);
     BBox2d bbox3(0.0, 0.0, 11.0, 10.0);
-    
+
     EXPECT_FALSE(bbox1 != bbox2);
     EXPECT_TRUE(bbox1 != bbox3);
 }

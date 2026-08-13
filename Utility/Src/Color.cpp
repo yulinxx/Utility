@@ -7,26 +7,23 @@ namespace Ut
 {
     static constexpr float EPS = 1.0f / 255.0f;
 
-    Color::Color() : m_data{ 0.0f, 0.0f, 0.0f, 1.0f }
+    Color::Color()
+        : m_data{ 0.0f, 0.0f, 0.0f, 1.0f }
     {
     }
 
     Color::Color(float red, float green, float blue, float alpha)
-        : m_data{
-            std::clamp(red, 0.0f, 1.0f),
+        : m_data{ std::clamp(red, 0.0f, 1.0f),
             std::clamp(green, 0.0f, 1.0f),
             std::clamp(blue, 0.0f, 1.0f),
-            std::clamp(alpha, 0.0f, 1.0f)
-        }
+            std::clamp(alpha, 0.0f, 1.0f) }
     {
     }
 
     bool Color::operator==(const Color& other) const
     {
-        return std::fabs(m_data[0] - other.m_data[0]) < EPS &&
-            std::fabs(m_data[1] - other.m_data[1]) < EPS &&
-            std::fabs(m_data[2] - other.m_data[2]) < EPS &&
-            std::fabs(m_data[3] - other.m_data[3]) < EPS;
+        return std::fabs(m_data[0] - other.m_data[0]) < EPS && std::fabs(m_data[1] - other.m_data[1]) < EPS &&
+            std::fabs(m_data[2] - other.m_data[2]) < EPS && std::fabs(m_data[3] - other.m_data[3]) < EPS;
     }
 
     bool Color::operator!=(const Color& other) const
@@ -36,32 +33,26 @@ namespace Ut
 
     Color Color::operator+(const Color& other) const
     {
-        return Color(
-            std::clamp(m_data[0] + other.m_data[0], 0.0f, 1.0f),
+        return Color(std::clamp(m_data[0] + other.m_data[0], 0.0f, 1.0f),
             std::clamp(m_data[1] + other.m_data[1], 0.0f, 1.0f),
             std::clamp(m_data[2] + other.m_data[2], 0.0f, 1.0f),
-            std::clamp(m_data[3] + other.m_data[3], 0.0f, 1.0f)
-        );
+            std::clamp(m_data[3] + other.m_data[3], 0.0f, 1.0f));
     }
 
     Color Color::operator-(const Color& other) const
     {
-        return Color(
-            std::clamp(m_data[0] - other.m_data[0], 0.0f, 1.0f),
+        return Color(std::clamp(m_data[0] - other.m_data[0], 0.0f, 1.0f),
             std::clamp(m_data[1] - other.m_data[1], 0.0f, 1.0f),
             std::clamp(m_data[2] - other.m_data[2], 0.0f, 1.0f),
-            std::clamp(m_data[3] - other.m_data[3], 0.0f, 1.0f)
-        );
+            std::clamp(m_data[3] - other.m_data[3], 0.0f, 1.0f));
     }
 
     Color Color::operator*(float scalar) const
     {
-        return Color(
-            std::clamp(m_data[0] * scalar, 0.0f, 1.0f),
+        return Color(std::clamp(m_data[0] * scalar, 0.0f, 1.0f),
             std::clamp(m_data[1] * scalar, 0.0f, 1.0f),
             std::clamp(m_data[2] * scalar, 0.0f, 1.0f),
-            std::clamp(m_data[3] * scalar, 0.0f, 1.0f)
-        );
+            std::clamp(m_data[3] * scalar, 0.0f, 1.0f));
     }
 
     Color Color::operator/(float scalar) const
@@ -70,22 +61,18 @@ namespace Ut
         {
             throw std::invalid_argument("Division by zero or near-zero value");
         }
-        return Color(
-            std::clamp(m_data[0] / scalar, 0.0f, 1.0f),
+        return Color(std::clamp(m_data[0] / scalar, 0.0f, 1.0f),
             std::clamp(m_data[1] / scalar, 0.0f, 1.0f),
             std::clamp(m_data[2] / scalar, 0.0f, 1.0f),
-            std::clamp(m_data[3] / scalar, 0.0f, 1.0f)
-        );
+            std::clamp(m_data[3] / scalar, 0.0f, 1.0f));
     }
 
     Color Color::fromRGB255(int red, int green, int blue, int alpha)
     {
-        return Color(
-            std::clamp(red, 0, 255) / 255.0f,
+        return Color(std::clamp(red, 0, 255) / 255.0f,
             std::clamp(green, 0, 255) / 255.0f,
             std::clamp(blue, 0, 255) / 255.0f,
-            std::clamp(alpha, 0, 255) / 255.0f
-        );
+            std::clamp(alpha, 0, 255) / 255.0f);
     }
 
     Color Color::fromHex(const std::string& hex)
@@ -329,12 +316,10 @@ namespace Ut
     Color Color::blend(const Color& other, float factor) const
     {
         factor = std::clamp(factor, 0.0f, 1.0f);
-        return Color(
-            m_data[0] * (1.0f - factor) + other.m_data[0] * factor,
+        return Color(m_data[0] * (1.0f - factor) + other.m_data[0] * factor,
             m_data[1] * (1.0f - factor) + other.m_data[1] * factor,
             m_data[2] * (1.0f - factor) + other.m_data[2] * factor,
-            m_data[3] * (1.0f - factor) + other.m_data[3] * factor
-        );
+            m_data[3] * (1.0f - factor) + other.m_data[3] * factor);
     }
 
     Color Color::lighten(float factor) const
@@ -409,12 +394,7 @@ namespace Ut
         uint32_t b = (index >> 8) & 0xFF;
         uint32_t a = index & 0xFF;
 
-        return Color(
-            r / 255.0f,
-            g / 255.0f,
-            b / 255.0f,
-            a / 255.0f
-        );
+        return Color(r / 255.0f, g / 255.0f, b / 255.0f, a / 255.0f);
     }
 
     size_t Color::hash() const
@@ -495,25 +475,23 @@ namespace Ut
     std::string Color::toHexRGB() const
     {
         std::stringstream ss;
-        ss << "#" << std::hex << std::setfill('0') << std::setw(2) << red255()
-            << std::setw(2) << green255() << std::setw(2) << blue255();
+        ss << "#" << std::hex << std::setfill('0') << std::setw(2) << red255() << std::setw(2) << green255()
+           << std::setw(2) << blue255();
         return ss.str();
     }
 
     std::string Color::toHexRGBA() const
     {
         std::stringstream ss;
-        ss << "#" << std::hex << std::setfill('0') << std::setw(2) << red255()
-            << std::setw(2) << green255() << std::setw(2) << blue255()
-            << std::setw(2) << alpha255();
+        ss << "#" << std::hex << std::setfill('0') << std::setw(2) << red255() << std::setw(2) << green255()
+           << std::setw(2) << blue255() << std::setw(2) << alpha255();
         return ss.str();
     }
 
     std::string Color::toCSS() const
     {
         std::stringstream ss;
-        ss << "rgba(" << red255() << ", " << green255() << ", " << blue255()
-            << ", " << a() << ")";
+        ss << "rgba(" << red255() << ", " << green255() << ", " << blue255() << ", " << a() << ")";
         return ss.str();
     }
 
@@ -587,7 +565,10 @@ namespace Ut
     void Color::HSVtoRGB(float h, float s, float v, float& r, float& g, float& b)
     {
         h = std::fmod(h, 360.0f);
-        if (h < 0.0f) h += 360.0f;
+        if (h < 0.0f)
+        {
+            h += 360.0f;
+        }
         s = std::clamp(s, 0.0f, 1.0f);
         v = std::clamp(v, 0.0f, 1.0f);
 
@@ -597,27 +578,39 @@ namespace Ut
 
         if (h < 60.0f)
         {
-            r = c; g = x; b = 0.0f;
+            r = c;
+            g = x;
+            b = 0.0f;
         }
         else if (h < 120.0f)
         {
-            r = x; g = c; b = 0.0f;
+            r = x;
+            g = c;
+            b = 0.0f;
         }
         else if (h < 180.0f)
         {
-            r = 0.0f; g = c; b = x;
+            r = 0.0f;
+            g = c;
+            b = x;
         }
         else if (h < 240.0f)
         {
-            r = 0.0f; g = x; b = c;
+            r = 0.0f;
+            g = x;
+            b = c;
         }
         else if (h < 300.0f)
         {
-            r = x; g = 0.0f; b = c;
+            r = x;
+            g = 0.0f;
+            b = c;
         }
         else
         {
-            r = c; g = 0.0f; b = x;
+            r = c;
+            g = 0.0f;
+            b = x;
         }
 
         r += m;
@@ -671,7 +664,10 @@ namespace Ut
     void Color::HSLtoRGB(float h, float s, float l, float& r, float& g, float& b)
     {
         h = std::fmod(h, 360.0f);
-        if (h < 0.0f) h += 360.0f;
+        if (h < 0.0f)
+        {
+            h += 360.0f;
+        }
         s = std::clamp(s, 0.0f, 1.0f);
         l = std::clamp(l, 0.0f, 1.0f);
 
@@ -681,31 +677,43 @@ namespace Ut
 
         if (h < 60.0f)
         {
-            r = c; g = x; b = 0.0f;
+            r = c;
+            g = x;
+            b = 0.0f;
         }
         else if (h < 120.0f)
         {
-            r = x; g = c; b = 0.0f;
+            r = x;
+            g = c;
+            b = 0.0f;
         }
         else if (h < 180.0f)
         {
-            r = 0.0f; g = c; b = x;
+            r = 0.0f;
+            g = c;
+            b = x;
         }
         else if (h < 240.0f)
         {
-            r = 0.0f; g = x; b = c;
+            r = 0.0f;
+            g = x;
+            b = c;
         }
         else if (h < 300.0f)
         {
-            r = x; g = 0.0f; b = c;
+            r = x;
+            g = 0.0f;
+            b = c;
         }
         else
         {
-            r = c; g = 0.0f; b = x;
+            r = c;
+            g = 0.0f;
+            b = x;
         }
 
         r += m;
         g += m;
         b += m;
     }
-}
+}  // namespace Ut

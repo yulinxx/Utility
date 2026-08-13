@@ -19,7 +19,7 @@ namespace Ut
      *   | m[1]  m[4]  m[7] | = | m10  m11  m12 |
      *   | m[2]  m[5]  m[8] |   | m20  m21  m22 |
      */
-    template <typename T>
+    template<typename T>
     class Matrix
     {
     public:
@@ -29,7 +29,8 @@ namespace Ut
         // ==================== 构造函数 ====================
 
         /// 默认构造函数，初始化为单位矩阵
-        Matrix() : Matrix(T(1))
+        Matrix()
+            : Matrix(T(1))
         {
         }
 
@@ -40,20 +41,24 @@ namespace Ut
             {
                 data[i] = T(0);
             }
-            data[0] = diagonal; // m00
-            data[4] = diagonal; // m11
-            data[8] = diagonal; // m22
+            data[0] = diagonal;  // m00
+            data[4] = diagonal;  // m11
+            data[8] = diagonal;  // m22
         }
 
         /// 从9个元素构造（行主序输入，内部转为列主序存储）
-        Matrix(T m00, T m01, T m02,
-            T m10, T m11, T m12,
-            T m20, T m21, T m22)
+        Matrix(T m00, T m01, T m02, T m10, T m11, T m12, T m20, T m21, T m22)
         {
             // 列主序存储
-            data[0] = m00; data[3] = m01; data[6] = m02;
-            data[1] = m10; data[4] = m11; data[7] = m12;
-            data[2] = m20; data[5] = m21; data[8] = m22;
+            data[0] = m00;
+            data[3] = m01;
+            data[6] = m02;
+            data[1] = m10;
+            data[4] = m11;
+            data[7] = m12;
+            data[2] = m20;
+            data[5] = m21;
+            data[8] = m22;
         }
 
         /// 从数组构造（列主序）
@@ -188,6 +193,7 @@ namespace Ut
         {
             return data;
         }
+
         const T* ptr() const
         {
             return data;
@@ -292,11 +298,9 @@ namespace Ut
         /// 矩阵乘以三维向量 (用于齐次坐标变换)
         Vec<T, 3> operator*(const Vec<T, 3>& v) const
         {
-            return Vec<T, 3>(
-                at(0, 0) * v.data[0] + at(0, 1) * v.data[1] + at(0, 2) * v.data[2],
+            return Vec<T, 3>(at(0, 0) * v.data[0] + at(0, 1) * v.data[1] + at(0, 2) * v.data[2],
                 at(1, 0) * v.data[0] + at(1, 1) * v.data[1] + at(1, 2) * v.data[2],
-                at(2, 0) * v.data[0] + at(2, 1) * v.data[1] + at(2, 2) * v.data[2]
-            );
+                at(2, 0) * v.data[0] + at(2, 1) * v.data[1] + at(2, 2) * v.data[2]);
         }
 
         /// 变换二维点 (自动添加齐次坐标w=1，返回时除以w)
@@ -316,10 +320,7 @@ namespace Ut
         /// 变换二维向量 (不考虑平移，w=0)
         Vec<T, 2> transformVector(const Vec<T, 2>& v) const
         {
-            return Vec<T, 2>(
-                at(0, 0) * v.data[0] + at(0, 1) * v.data[1],
-                at(1, 0) * v.data[0] + at(1, 1) * v.data[1]
-            );
+            return Vec<T, 2>(at(0, 0) * v.data[0] + at(0, 1) * v.data[1], at(1, 0) * v.data[0] + at(1, 1) * v.data[1]);
         }
 
         // ==================== 复合赋值运算符 ====================
@@ -421,9 +422,9 @@ namespace Ut
         /// 就地转置
         Matrix& transpose()
         {
-            std::swap(data[1], data[3]); // m10 <-> m01
-            std::swap(data[2], data[6]); // m20 <-> m02
-            std::swap(data[5], data[7]); // m21 <-> m12
+            std::swap(data[1], data[3]);  // m10 <-> m01
+            std::swap(data[2], data[6]);  // m20 <-> m02
+            std::swap(data[5], data[7]);  // m21 <-> m12
             return *this;
         }
 
@@ -435,9 +436,7 @@ namespace Ut
             T m10 = at(1, 0), m11 = at(1, 1), m12 = at(1, 2);
             T m20 = at(2, 0), m21 = at(2, 1), m22 = at(2, 2);
 
-            return m00 * (m11 * m22 - m12 * m21)
-                - m01 * (m10 * m22 - m12 * m20)
-                + m02 * (m10 * m21 - m11 * m20);
+            return m00 * (m11 * m22 - m12 * m21) - m01 * (m10 * m22 - m12 * m20) + m02 * (m10 * m21 - m11 * m20);
         }
 
         /// 计算逆矩阵
@@ -517,8 +516,10 @@ namespace Ut
             T c = std::cos(radians);
             T s = std::sin(radians);
             Matrix result = identity();
-            result.at(0, 0) = c;  result.at(0, 1) = -s;
-            result.at(1, 0) = s;  result.at(1, 1) = c;
+            result.at(0, 0) = c;
+            result.at(0, 1) = -s;
+            result.at(1, 0) = s;
+            result.at(1, 1) = c;
             return result;
         }
 
@@ -586,8 +587,10 @@ namespace Ut
             T c2 = std::cos(T(2) * radians);
             T s2 = std::sin(T(2) * radians);
             Matrix result = identity();
-            result.at(0, 0) = c2;   result.at(0, 1) = s2;
-            result.at(1, 0) = s2;   result.at(1, 1) = -c2;
+            result.at(0, 0) = c2;
+            result.at(0, 1) = s2;
+            result.at(1, 0) = s2;
+            result.at(1, 1) = -c2;
             return result;
         }
 
@@ -624,8 +627,8 @@ namespace Ut
             T y0 = p1.data[1];
 
             // 2D镜像矩阵元素
-            T a = ux * ux - uy * uy;      // cos(2θ)
-            T b = T(2) * ux * uy;          // sin(2θ)
+            T a = ux * ux - uy * uy;  // cos(2θ)
+            T b = T(2) * ux * uy;     // sin(2θ)
 
             Matrix result;
             result.at(0, 0) = a;
@@ -726,7 +729,7 @@ namespace Ut
     // ==================== 全局运算符 ====================
 
     /// 标量 * 矩阵
-    template <typename T>
+    template<typename T>
     inline Matrix<T> operator*(T scalar, const Matrix<T>& mat)
     {
         return mat * scalar;
@@ -742,4 +745,4 @@ namespace Ut
 
     // 默认使用 double 精度
     using Matrix3 = Matrix<double>;
-} // namespace Ut
+}  // namespace Ut

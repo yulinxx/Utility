@@ -45,7 +45,7 @@ TEST(Vec2dTest, IndexAccess)
     Vec2d v(1.0, 2.0);
     EXPECT_DOUBLE_EQ(v[0], 1.0);
     EXPECT_DOUBLE_EQ(v[1], 2.0);
-    
+
     v[0] = 10.0;
     v[1] = 20.0;
     EXPECT_DOUBLE_EQ(v.x(), 10.0);

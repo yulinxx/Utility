@@ -15,12 +15,12 @@ namespace Ut
      */
     struct TableSettings
     {
-        float width = 1200.0f;   // 台面宽（毫米）
-        float height = 800.0f;    // 台面高（毫米）
+        float width = 1200.0f;  // 台面宽（毫米）
+        float height = 800.0f;  // 台面高（毫米）
 
-        Ut::Color outerColor;     // 台面外背景色
-        Ut::Color surfaceColor;   // 台面底色
-        Ut::Color borderColor;    // 边框颜色
+        Ut::Color outerColor;    // 台面外背景色
+        Ut::Color surfaceColor;  // 台面底色
+        Ut::Color borderColor;   // 边框颜色
         float borderWidthPx = 1.5f;
 
         bool visible = true;
@@ -64,17 +64,17 @@ namespace Ut
      */
     struct RulerSettings
     {
-        bool  visible = true;
-        int   thicknessPx = 36;
+        bool visible = true;
+        int thicknessPx = 36;
         Ut::Color bgColor;
         Ut::Color tickColor;
         Ut::Color textColor;
         Ut::Color borderColor;
 
-        int   fontSizePt = 10;
-        int   majorTickLen = 10;
-        int   minorTickLen = 6;
-        int   mediumTickLen = 8;
+        int fontSizePt = 10;
+        int majorTickLen = 10;
+        int minorTickLen = 6;
+        int mediumTickLen = 8;
         float tickLineWidthPx = 1.0f;
 
         float bgZ = 0.0f;
@@ -90,8 +90,8 @@ namespace Ut
     struct SceneEnvironmentSettings
     {
         TableSettings table;
-        GridSettings  grid;
+        GridSettings grid;
         RulerSettings topRuler;
         RulerSettings leftRuler;
     };
-}
+}  // namespace Ut

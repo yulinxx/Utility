@@ -125,6 +125,7 @@ namespace Ut
         {
             return vertices.size();
         }
+
         bool isEmpty() const
         {
             return vertices.empty();
@@ -142,9 +143,10 @@ namespace Ut
         {
             return commands.empty();
         }
+
         size_t size() const
         {
             return commands.size();
         }
     };
-} // namespace Ut
+}  // namespace Ut

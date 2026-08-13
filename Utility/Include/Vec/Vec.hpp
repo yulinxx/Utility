@@ -15,7 +15,7 @@ namespace Ut
      * @tparam T 数据类型 (int, float, double等)
      * @tparam N 维度 (目前只支持二/三维计算)
      */
-    template <typename T, size_t N>
+    template<typename T, size_t N>
     class Vec
     {
     public:
@@ -82,42 +82,46 @@ namespace Ut
         {
             return data[0];
         }
+
         const T& x() const
         {
             return data[0];
         }
 
         /// 获取Y分量
-        template <size_t M = N, typename = std::enable_if_t<(M >= 2)>>
+        template<size_t M = N, typename = std::enable_if_t<(M >= 2)>>
         T& y()
         {
             return data[1];
         }
-        template <size_t M = N, typename = std::enable_if_t<(M >= 2)>>
+
+        template<size_t M = N, typename = std::enable_if_t<(M >= 2)>>
         const T& y() const
         {
             return data[1];
         }
 
         /// 获取Z分量
-        template <size_t M = N, typename = std::enable_if_t<(M >= 3)>>
+        template<size_t M = N, typename = std::enable_if_t<(M >= 3)>>
         T& z()
         {
             return data[2];
         }
-        template <size_t M = N, typename = std::enable_if_t<(M >= 3)>>
+
+        template<size_t M = N, typename = std::enable_if_t<(M >= 3)>>
         const T& z() const
         {
             return data[2];
         }
 
         /// 获取W分量
-        template <size_t M = N, typename = std::enable_if_t<(M == 4)>>
+        template<size_t M = N, typename = std::enable_if_t<(M == 4)>>
         T& w()
         {
             return data[3];
         }
-        template <size_t M = N, typename = std::enable_if_t<(M == 4)>>
+
+        template<size_t M = N, typename = std::enable_if_t<(M == 4)>>
         const T& w() const
         {
             return data[3];
@@ -298,7 +302,7 @@ namespace Ut
         }
 
         /// 叉积 (仅适用于三维向量)
-        template <size_t M = N, typename = std::enable_if_t<M == 3>>
+        template<size_t M = N, typename = std::enable_if_t<M == 3>>
         Vec cross(const Vec& other) const
         {
             Vec result;
@@ -309,7 +313,7 @@ namespace Ut
         }
 
         /// 二维叉积 (返回标量，表示z分量)
-        template <size_t M = N, typename = std::enable_if_t<M == 2>>
+        template<size_t M = N, typename = std::enable_if_t<M == 2>>
         T cross2D(const Vec& other) const
         {
             return data[0] * other.data[1] - data[1] * other.data[0];
@@ -354,8 +358,7 @@ namespace Ut
                 {
                     throw std::runtime_error("Cannot normalize vector containing NaN");
                 }
-                if (data[i] == std::numeric_limits<T>::infinity() ||
-                    data[i] == -std::numeric_limits<T>::infinity())
+                if (data[i] == std::numeric_limits<T>::infinity() || data[i] == -std::numeric_limits<T>::infinity())
                 {
                     throw std::runtime_error("Cannot normalize vector containing infinity");
                 }
@@ -378,8 +381,7 @@ namespace Ut
                 {
                     throw std::runtime_error("Cannot normalize vector containing NaN");
                 }
-                if (data[i] == std::numeric_limits<T>::infinity() ||
-                    data[i] == -std::numeric_limits<T>::infinity())
+                if (data[i] == std::numeric_limits<T>::infinity() || data[i] == -std::numeric_limits<T>::infinity())
                 {
                     throw std::runtime_error("Cannot normalize vector containing infinity");
                 }
@@ -492,7 +494,7 @@ namespace Ut
     // ==================== 全局运算符 ====================
 
     /// 标量 * 向量
-    template <typename T, size_t N>
+    template<typename T, size_t N>
     inline Vec<T, N> operator*(T scalar, const Vec<T, N>& vec)
     {
         return vec * scalar;
@@ -545,14 +547,14 @@ namespace Ut
     using Vec4f = Vec<float, 4>;
     using Vec4d = Vec<double, 4>;
     using Vec4 = Vec<float, 4>;
-} // namespace Ut
+}  // namespace Ut
 
 #ifndef UT_EXTERN_TEMPLATE
-#ifdef UTILITY_EXTERN_TEMPLATES
-#define UT_EXTERN_TEMPLATE extern
-#else
-#define UT_EXTERN_TEMPLATE
-#endif
+    #ifdef UTILITY_EXTERN_TEMPLATES
+        #define UT_EXTERN_TEMPLATE extern
+    #else
+        #define UT_EXTERN_TEMPLATE
+    #endif
 #endif
 
 // 显式实例化声明
