@@ -367,7 +367,7 @@ namespace Ut
             T len = length();
             if (len == T(0))
             {
-                throw std::runtime_error("Cannot normalize zero vector");
+                return Vec();  // 零向量归一化结果仍为零向量（默认构造即全 0）
             }
             return *this / len;
         }
@@ -390,7 +390,8 @@ namespace Ut
             T len = length();
             if (len == T(0))
             {
-                throw std::runtime_error("Cannot normalize zero vector");
+                *this = Vec();  // 零向量归一化结果仍为零向量（默认构造即全 0）
+                return *this;
             }
             *this /= len;
             return *this;
