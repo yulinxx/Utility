@@ -8,6 +8,15 @@
 #include <limits>
 #include <vector>
 
+// [兼容性修复] Windows.h 定义的 min/max 宏与 Vec::min/Vec::max 静态成员函数冲突。
+// 此处 undef 以确保成员函数正确编译。
+#ifdef min
+#undef min
+#endif
+#ifdef max
+#undef max
+#endif
+
 namespace Ut
 {
     /**
