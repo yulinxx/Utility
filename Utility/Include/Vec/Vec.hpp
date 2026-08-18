@@ -559,20 +559,7 @@ namespace Ut
     using Vec4 = Vec<float, 4>;
 }  // namespace Ut
 
-#ifndef UT_EXTERN_TEMPLATE
-    #ifdef UTILITY_EXTERN_TEMPLATES
-        #define UT_EXTERN_TEMPLATE extern
-    #else
-        #define UT_EXTERN_TEMPLATE
-    #endif
-#endif
-
-// 显式实例化声明
-UT_EXTERN_TEMPLATE template class Ut::Vec<int, 2>;
-UT_EXTERN_TEMPLATE template class Ut::Vec<float, 2>;
-UT_EXTERN_TEMPLATE template class Ut::Vec<double, 2>;
-UT_EXTERN_TEMPLATE template class Ut::Vec<int, 3>;
-UT_EXTERN_TEMPLATE template class Ut::Vec<float, 3>;
-UT_EXTERN_TEMPLATE template class Ut::Vec<double, 3>;
-UT_EXTERN_TEMPLATE template class Ut::Vec<float, 4>;
-UT_EXTERN_TEMPLATE template class Ut::Vec<double, 4>;
+// NOTE: extern template 声明已移除，原因:
+// Clang 在 -fvisibility=hidden + -fvisibility-inlines-hidden 下会生成
+// weak private 符号，导致 dylib 无法导出。改为在 Src/Vec.cpp 中用
+// #pragma GCC visibility push(default) 导出显式实例化符号。

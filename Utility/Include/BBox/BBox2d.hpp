@@ -6,14 +6,6 @@
 #include <algorithm>
 #include <limits>
 
-#ifndef UT_EXTERN_TEMPLATE
-    #ifdef UTILITY_EXTERN_TEMPLATES
-        #define UT_EXTERN_TEMPLATE extern
-    #else
-        #define UT_EXTERN_TEMPLATE
-    #endif
-#endif
-
 namespace Ut
 {
     /**
@@ -221,6 +213,4 @@ namespace Ut
     using Range = BBox2<double>;
 }  // namespace Ut
 
-// 显式实例化声明
-UT_EXTERN_TEMPLATE template class Ut::BBox2<float>;
-UT_EXTERN_TEMPLATE template class Ut::BBox2<double>;
+// NOTE: extern template 声明已移除，详见 Vec.hpp 同处说明。

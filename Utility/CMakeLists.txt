@@ -55,8 +55,21 @@ sanyi_add_shared_library(${LIB_NAME}
         ${BSHOSHANY_THREAD_POOL_INCLUDE_DIRS}
 )
 
-# PUBLIC 暴露模板显式实例化开关（同时作用于库自身与使用者）
-target_compile_definitions(${LIB_NAME} PUBLIC UTILITY_EXTERN_TEMPLATES)
+# UTILITY_EXTERN_TEMPLATES：仅暴露给消费者，prevent implicit instantiation
+# 库自身不定义该宏 (INTERFACE only)
+# Note: extern template 声明从 Vec.hpp/BBox2d.hpp 中移除，改为直接在 .cpp 中
+# 用 -fvisibility=default + #pragma 导出符号
+target_compile_definitions(${LIB_NAME} INTERFACE UTILITY_EXTERN_TEMPLATES)
+
+# 显式实例化文件需要 -fvisibility=default (覆盖全局 -fvisibility=hidden)
+set_target_properties(${LIB_NAME} PROPERTIES CXX_VISIBILITY_PRESET hidden)
+set_source_files_properties(
+    Src/Vec.cpp
+    Src/BBox2d.cpp
+    Src/Utility.cpp
+PROPERTIES
+    COMPILE_OPTIONS "-fvisibility=default"
+)
 
 option(BUILD_UTILITY_TESTS "Build Utility unit tests" OFF)
 
