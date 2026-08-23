@@ -11,7 +11,6 @@ project(SanYiCore
 
 option(BUILD_UTILITY_TESTS "Build Utility unit tests" OFF)
 
-add_subdirectory(${SANYI_LOG_DIR} ${CMAKE_CURRENT_BINARY_DIR}/Log)
 add_subdirectory(Utility)
 
 message(STATUS "[Standalone: ${PROJECT_NAME}]")
