@@ -89,3 +89,16 @@ else()
     message(STATUS "  Tests: DISABLED")
 endif()
 message(STATUS "----------------------------------------")
+
+sanyi_export_imported_target(${LIB_NAME}
+    LIB_NAME "${LIB_NAME}"
+    PUBLIC_INCLUDE_DIRS
+        "${CMAKE_CURRENT_SOURCE_DIR}/Include"
+        "${CMAKE_CURRENT_SOURCE_DIR}/Include/Ut"
+        "${CMAKE_CURRENT_SOURCE_DIR}/Include/BBox"
+        "${CMAKE_CURRENT_SOURCE_DIR}/Include/Color"
+        "${CMAKE_CURRENT_SOURCE_DIR}/Include/Mat"
+        "${CMAKE_CURRENT_SOURCE_DIR}/Include/Vec"
+        ${BSHOSHANY_THREAD_POOL_INCLUDE_DIRS}
+    INTERFACE_LINK_LIBRARIES
+)
