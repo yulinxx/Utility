@@ -15,6 +15,24 @@ namespace Ut
      */
     struct GeomMath
     {
+        // ==================== 具名容差常量 ====================
+        //
+        // 背景：项目里原先有 5 套各自实现的浮点相等判断（FLOAT_EQUAL 宏、
+        // GeomMath::almostEqual、EntityFill::isEqual、ScanlineFill/BowFill 各自的
+        // 匿名 isEqual、Geo3DPrimitives::almostEqual），而且默认容差差了三个数量级
+        // （EPSILON = 1e-6，DOUBLE_EPSILON = 1e-9）。实现已收敛到本结构体，
+        // 但**各调用点的容差数值一律显式传入、保持原值**，不做统一——几何算法的
+        // 容差是算法语义的一部分，擅自统一会静默改变结果。
+        //
+        // 新代码请优先用下面的具名常量表达意图，而不是写裸数值。
+
+        /// 除零保护（float）：分母绝对值小于此值就不做除法
+        /// float 只有 ~1e-7 的相对精度，比这更小的阈值（如 1e-12f）等价于"只挡精确的 0"
+        static constexpr float kEpsDivisorF = 1e-6f;
+
+        /// 除零保护（double）
+        static constexpr double kEpsDivisor = 1e-12;
+
         // ==================== 容差比较 ====================
 
         /** 判断值是否接近零 */
@@ -28,6 +46,23 @@ namespace Ut
         {
             return std::abs(a - b) <= tol;
         }
+
+        /**
+         * @brief float 版接近零判断
+         *
+         * 独立命名而非重载，避免 isZero(0) 之类的整型实参产生歧义。
+         */
+        static inline bool isZeroF(float v, float tol = FLOAT_EPSILON)
+        {
+            return std::abs(v) <= tol;
+        }
+
+        /** float 版近似相等判断 */
+        static inline bool almostEqualF(float a, float b, float tol = FLOAT_EPSILON)
+        {
+            return std::abs(a - b) <= tol;
+        }
+
 
         /** 判断 a <= b（带容差） */
         static inline bool lessOrEqual(double a, double b, double tol = DOUBLE_EPSILON)
