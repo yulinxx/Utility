@@ -67,6 +67,7 @@ set_source_files_properties(
     Src/Vec.cpp
     Src/BBox2d.cpp
     Src/Utility.cpp
+    Src/FileUtils.cpp
 PROPERTIES
     COMPILE_OPTIONS "-fvisibility=default"
 )
