@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Utility/UtilityAPI.h"
+#include "UtilityAPI.h"
 #include <string>
 #include <filesystem>
 
@@ -23,7 +23,7 @@ namespace Ut
          * @param path 文件系统路径
          * @return UTF-8 编码的字符串
          */
-        UTILRARY_API std::string pathToUtf8(const std::filesystem::path& path);
+        UTILITY_API std::string pathToUtf8(const std::filesystem::path& path);
 
         /**
          * @brief UTF-8 字符串转路径
@@ -35,6 +35,6 @@ namespace Ut
          * @param utf8 UTF-8 编码的字符串
          * @return 文件系统路径
          */
-        UTILRARY_API std::filesystem::path utf8ToPath(const std::string& utf8);
+        UTILITY_API std::filesystem::path utf8ToPath(const std::string& utf8);
     }
 }
