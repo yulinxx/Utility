@@ -87,4 +87,58 @@ namespace Ut
             (p) = nullptr;       \
         } while (0)
 #endif
+
+    // ==================== 防御性编程辅助 ====================
+
+// 检查指针是否为空，为空则返回指定错误码
+#ifndef ENSURE_NONNULL
+    #define ENSURE_NONNULL(ptr, retVal) \
+        do                               \
+        {                                \
+            if (!(ptr))                  \
+            {                            \
+                return (retVal);         \
+            }                            \
+        } while (0)
+#endif
+
+// 检查指针是否为空，为空则返回 false（适用于返回 bool 的函数）
+#ifndef ENSURE_NONNULL_BOOL
+    #define ENSURE_NONNULL_BOOL(ptr) ENSURE_NONNULL(ptr, false)
+#endif
+
+// 检查指针是否为空，为空则返回 nullptr（适用于返回指针的函数）
+#ifndef ENSURE_NONNULL_PTR
+    #define ENSURE_NONNULL_PTR(ptr) ENSURE_NONNULL(ptr, nullptr)
+#endif
+
+// 检查条件不满足时返回错误码
+#ifndef RETURN_IF_FALSE
+    #define RETURN_IF_FALSE(condition, retVal) \
+        do                                     \
+        {                                      \
+            if (!(condition))                   \
+            {                                  \
+                return (retVal);               \
+            }                                  \
+        } while (0)
+#endif
+
+// 安全的虚函数调用（检查 this 指针）
+#ifndef SAFE_CALL
+    #define SAFE_CALL(methodCall) \
+        do                        \
+        {                         \
+            if (this)             \
+            {                     \
+                methodCall;        \
+            }                     \
+        } while (0)
+#endif
+
+// 安全数组成员访问（带边界检查）
+#ifndef SAFE_ARRAY_ACCESS
+    #define SAFE_ARRAY_ACCESS(arr, index, defaultVal) \
+        (((index) >= 0 && (index) < ARRAY_SIZE(arr)) ? (arr)[index] : (defaultVal))
+#endif
 }  // namespace Ut
