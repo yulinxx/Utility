@@ -436,28 +436,32 @@ namespace Ut
         }
 
         /// 透视投影矩阵
-        static Matrix4 perspective(T fovY, T aspect, T near, T far)
+        static Matrix4 perspective(T fovY, T aspect, T zNear, T zFar)
         {
             T tanHalfFov = std::tan(fovY * T(0.5));
+            T rangeInv = T(1) / (zFar - zNear);
             Matrix4 m(T(0));
             m.at(0, 0) = T(1) / (aspect * tanHalfFov);
             m.at(1, 1) = T(1) / tanHalfFov;
-            m.at(2, 2) = -(far + near) / (far - near);
-            m.at(2, 3) = -(T(2) * far * near) / (far - near);
+            m.at(2, 2) = -(zFar + zNear) * rangeInv;
+            m.at(2, 3) = -(T(2) * zFar * zNear) * rangeInv;
             m.at(3, 2) = T(-1);
             return m;
         }
 
         /// 正交投影矩阵
-        static Matrix4 ortho(T left, T right, T bottom, T top, T near, T far)
+        static Matrix4 ortho(T left, T right, T bottom, T top, T zNear, T zFar)
         {
+            T widthInv = T(1) / (right - left);
+            T heightInv = T(1) / (top - bottom);
+            T depthInv = T(1) / (zFar - zNear);
             Matrix4 m;
-            m.at(0, 0) = T(2) / (right - left);
-            m.at(1, 1) = T(2) / (top - bottom);
-            m.at(2, 2) = T(-2) / (far - near);
-            m.at(0, 3) = -(right + left) / (right - left);
-            m.at(1, 3) = -(top + bottom) / (top - bottom);
-            m.at(2, 3) = -(far + near) / (far - near);
+            m.at(0, 0) = T(2) * widthInv;
+            m.at(1, 1) = T(2) * heightInv;
+            m.at(2, 2) = T(-2) * depthInv;
+            m.at(0, 3) = -(right + left) * widthInv;
+            m.at(1, 3) = -(top + bottom) * heightInv;
+            m.at(2, 3) = -(zFar + zNear) * depthInv;
             return m;
         }
     };
