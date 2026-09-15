@@ -1,4 +1,4 @@
-﻿cmake_minimum_required(VERSION 4.3)
+cmake_minimum_required(VERSION 4.3)
 
 # --- 模块元信息 ---
 set(LIB_NAME "Utility")
@@ -62,6 +62,7 @@ sanyi_add_shared_library(${LIB_NAME}
 target_compile_definitions(${LIB_NAME} INTERFACE UTILITY_EXTERN_TEMPLATES)
 
 # 显式实例化文件需要 -fvisibility=default (覆盖全局 -fvisibility=hidden)
+# 注意：-fvisibility 是 GCC/Clang 选项，MSVC 上无此选项
 set_target_properties(${LIB_NAME} PROPERTIES CXX_VISIBILITY_PRESET hidden)
 set_source_files_properties(
     Src/Vec.cpp
@@ -69,7 +70,7 @@ set_source_files_properties(
     Src/Utility.cpp
     Src/FileUtils.cpp
 PROPERTIES
-    COMPILE_OPTIONS "-fvisibility=default"
+    COMPILE_OPTIONS "$<$<NOT:$<CXX_COMPILER_ID:MSVC>>:-fvisibility=default>"
 )
 
 option(BUILD_UTILITY_TESTS "Build Utility unit tests" OFF)
