@@ -1,5 +1,4 @@
 #pragma once
 
-#ifndef M_PI
-    #define M_PI 3.14159265358979323846
-#endif
+// 历史兼容头文件：统一转发至 Ut/Def.h
+#include "Ut/Def.h"

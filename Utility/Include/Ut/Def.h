@@ -1,5 +1,38 @@
 #pragma once
 
+// ==================== 平台兼容宏（全局统一定义） ====================
+
+#ifdef _WIN32
+    #ifndef NOMINMAX
+        #define NOMINMAX
+    #endif
+    #ifndef WIN32_LEAN_AND_MEAN
+        #define WIN32_LEAN_AND_MEAN
+    #endif
+#endif
+
+// ==================== Deprecated 警告抑制宏 ====================
+
+#if defined(_MSC_VER)
+    #define SY_SUPPRESS_DEPRECATED_BEGIN \
+        __pragma(warning(push)) \
+        __pragma(warning(disable : 4996))
+    #define SY_SUPPRESS_DEPRECATED_END __pragma(warning(pop))
+#elif defined(__clang__)
+    #define SY_SUPPRESS_DEPRECATED_BEGIN \
+        _Pragma("clang diagnostic push") \
+        _Pragma("clang diagnostic ignored \"-Wdeprecated-declarations\"")
+    #define SY_SUPPRESS_DEPRECATED_END _Pragma("clang diagnostic pop")
+#elif defined(__GNUC__)
+    #define SY_SUPPRESS_DEPRECATED_BEGIN \
+        _Pragma("GCC diagnostic push") \
+        _Pragma("GCC diagnostic ignored \"-Wdeprecated-declarations\"")
+    #define SY_SUPPRESS_DEPRECATED_END _Pragma("GCC diagnostic pop")
+#else
+    #define SY_SUPPRESS_DEPRECATED_BEGIN
+    #define SY_SUPPRESS_DEPRECATED_END
+#endif
+
 namespace Ut
 {
     // ==================== 数学常量 ====================
