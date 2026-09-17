@@ -53,6 +53,9 @@ sanyi_add_shared_library(${LIB_NAME}
         "${CMAKE_CURRENT_SOURCE_DIR}/Include/Mat"
         "${CMAKE_CURRENT_SOURCE_DIR}/Include/Vec"
         ${BSHOSHANY_THREAD_POOL_INCLUDE_DIRS}
+    LINK_LIBRARIES
+        Threads::Threads
+        bshoshany-thread-pool
 )
 
 # UTILITY_EXTERN_TEMPLATES：仅暴露给消费者，prevent implicit instantiation
@@ -103,4 +106,5 @@ sanyi_export_imported_target(${LIB_NAME}
         "${CMAKE_CURRENT_SOURCE_DIR}/Include/Vec"
         ${BSHOSHANY_THREAD_POOL_INCLUDE_DIRS}
     INTERFACE_LINK_LIBRARIES
-)
+        Threads::Threads
+        bshoshany-thread-pool
