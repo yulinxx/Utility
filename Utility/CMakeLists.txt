@@ -77,7 +77,7 @@ option(BUILD_UTILITY_TESTS "Build Utility unit tests" OFF)
 
 if(BUILD_UTILITY_TESTS)
     enable_testing()
-    find_package(GTest REQUIRED)
+    find_package(GTest CONFIG REQUIRED)
     add_subdirectory(Test)
 endif()
 

@@ -1,6 +1,6 @@
 # Utility模块单元测试配置
 
-find_package(GTest REQUIRED)
+find_package(GTest CONFIG REQUIRED)
 include(GoogleTest)
 
 file(GLOB_RECURSE UTILITY_TEST_SOURCES CONFIGURE_DEPENDS
