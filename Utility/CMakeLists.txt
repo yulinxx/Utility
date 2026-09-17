@@ -34,6 +34,7 @@ list(FILTER LIB_SOURCES EXCLUDE REGEX "${SANYI_SOURCE_EXCLUDE_REGEX}")
 list(FILTER LIB_HEADERS EXCLUDE REGEX "${SANYI_HEADER_EXCLUDE_REGEX}")
 
 find_path(BSHOSHANY_THREAD_POOL_INCLUDE_DIRS "BS_thread_pool.hpp")
+find_package(Threads REQUIRED)
 
 # --- 统一入口创建 DLL ---
 sanyi_add_shared_library(${LIB_NAME}
@@ -55,7 +56,6 @@ sanyi_add_shared_library(${LIB_NAME}
         ${BSHOSHANY_THREAD_POOL_INCLUDE_DIRS}
     LINK_LIBRARIES
         Threads::Threads
-        bshoshany-thread-pool
 )
 
 # UTILITY_EXTERN_TEMPLATES：仅暴露给消费者，prevent implicit instantiation
@@ -107,4 +107,4 @@ sanyi_export_imported_target(${LIB_NAME}
         ${BSHOSHANY_THREAD_POOL_INCLUDE_DIRS}
     INTERFACE_LINK_LIBRARIES
         Threads::Threads
-        bshoshany-thread-pool
+)
