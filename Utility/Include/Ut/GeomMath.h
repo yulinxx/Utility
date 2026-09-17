@@ -63,7 +63,6 @@ namespace Ut
             return std::abs(a - b) <= tol;
         }
 
-
         /** 判断 a <= b（带容差） */
         static inline bool lessOrEqual(double a, double b, double tol = DOUBLE_EPSILON)
         {

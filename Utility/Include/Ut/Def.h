@@ -14,19 +14,15 @@
 // ==================== Deprecated 警告抑制宏 ====================
 
 #if defined(_MSC_VER)
-    #define SY_SUPPRESS_DEPRECATED_BEGIN \
-        __pragma(warning(push)) \
-        __pragma(warning(disable : 4996))
-    #define SY_SUPPRESS_DEPRECATED_END __pragma(warning(pop))
+    #define SY_SUPPRESS_DEPRECATED_BEGIN __pragma(warning(push)) __pragma(warning(disable : 4996))
+    #define SY_SUPPRESS_DEPRECATED_END   __pragma(warning(pop))
 #elif defined(__clang__)
     #define SY_SUPPRESS_DEPRECATED_BEGIN \
-        _Pragma("clang diagnostic push") \
-        _Pragma("clang diagnostic ignored \"-Wdeprecated-declarations\"")
+        _Pragma("clang diagnostic push") _Pragma("clang diagnostic ignored \"-Wdeprecated-declarations\"")
     #define SY_SUPPRESS_DEPRECATED_END _Pragma("clang diagnostic pop")
 #elif defined(__GNUC__)
     #define SY_SUPPRESS_DEPRECATED_BEGIN \
-        _Pragma("GCC diagnostic push") \
-        _Pragma("GCC diagnostic ignored \"-Wdeprecated-declarations\"")
+        _Pragma("GCC diagnostic push") _Pragma("GCC diagnostic ignored \"-Wdeprecated-declarations\"")
     #define SY_SUPPRESS_DEPRECATED_END _Pragma("GCC diagnostic pop")
 #else
     #define SY_SUPPRESS_DEPRECATED_BEGIN
@@ -126,12 +122,12 @@ namespace Ut
 // 检查指针是否为空，为空则返回指定错误码
 #ifndef ENSURE_NONNULL
     #define ENSURE_NONNULL(ptr, retVal) \
-        do                               \
-        {                                \
-            if (!(ptr))                  \
-            {                            \
-                return (retVal);         \
-            }                            \
+        do                              \
+        {                               \
+            if (!(ptr))                 \
+            {                           \
+                return (retVal);        \
+            }                           \
         } while (0)
 #endif
 
@@ -150,7 +146,7 @@ namespace Ut
     #define RETURN_IF_FALSE(condition, retVal) \
         do                                     \
         {                                      \
-            if (!(condition))                   \
+            if (!(condition))                  \
             {                                  \
                 return (retVal);               \
             }                                  \
@@ -164,7 +160,7 @@ namespace Ut
         {                         \
             if (this)             \
             {                     \
-                methodCall;        \
+                methodCall;       \
             }                     \
         } while (0)
 #endif

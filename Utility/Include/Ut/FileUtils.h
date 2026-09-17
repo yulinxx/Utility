@@ -36,5 +36,5 @@ namespace Ut
          * @return 文件系统路径
          */
         UTILITY_API std::filesystem::path utf8ToPath(const std::string& utf8);
-    }
-}
+    }  // namespace FileUtils
+}  // namespace Ut

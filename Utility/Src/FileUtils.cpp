@@ -18,9 +18,8 @@ namespace Ut::FileUtils
             return {};
         }
 
-        int size = WideCharToMultiByte(
-            CP_UTF8, 0, wstr.c_str(), static_cast<int>(wstr.size()),
-            nullptr, 0, nullptr, nullptr);
+        int size =
+            WideCharToMultiByte(CP_UTF8, 0, wstr.c_str(), static_cast<int>(wstr.size()), nullptr, 0, nullptr, nullptr);
 
         if (size <= 0)
         {
@@ -29,8 +28,7 @@ namespace Ut::FileUtils
 
         std::string result(size, 0);
         int written = WideCharToMultiByte(
-            CP_UTF8, 0, wstr.c_str(), static_cast<int>(wstr.size()),
-            &result[0], size, nullptr, nullptr);
+            CP_UTF8, 0, wstr.c_str(), static_cast<int>(wstr.size()), &result[0], size, nullptr, nullptr);
 
         if (written <= 0)
         {
@@ -51,9 +49,7 @@ namespace Ut::FileUtils
             return {};
         }
 
-        int wsize = MultiByteToWideChar(
-            CP_UTF8, 0, utf8.c_str(), static_cast<int>(utf8.size()),
-            nullptr, 0);
+        int wsize = MultiByteToWideChar(CP_UTF8, 0, utf8.c_str(), static_cast<int>(utf8.size()), nullptr, 0);
 
         if (wsize <= 0)
         {
@@ -61,10 +57,8 @@ namespace Ut::FileUtils
         }
 
         std::wstring wstr(wsize, 0);
-        
-        int written = MultiByteToWideChar(
-            CP_UTF8, 0, utf8.c_str(), static_cast<int>(utf8.size()),
-            &wstr[0], wsize);
+
+        int written = MultiByteToWideChar(CP_UTF8, 0, utf8.c_str(), static_cast<int>(utf8.size()), &wstr[0], wsize);
 
         if (written <= 0)
         {
@@ -76,4 +70,4 @@ namespace Ut::FileUtils
         return std::filesystem::u8path(utf8);
 #endif
     }
-}
+}  // namespace Ut::FileUtils
