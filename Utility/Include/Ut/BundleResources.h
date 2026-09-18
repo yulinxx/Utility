@@ -4,6 +4,7 @@
 
 #include <QString>
 #include <QCoreApplication>
+#include <QDir>
 
 /// App Bundle 内部资源查找工具
 /// 用于定位打包进 App 的 pdftocairo、gs 等外部工具及其依赖库
