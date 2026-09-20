@@ -56,6 +56,8 @@ sanyi_add_shared_library(${LIB_NAME}
         ${BSHOSHANY_THREAD_POOL_INCLUDE_DIRS}
     LINK_LIBRARIES
         Threads::Threads
+    QT_COMPONENTS
+        Core
 )
 
 # UTILITY_EXTERN_TEMPLATES：仅暴露给消费者，prevent implicit instantiation
