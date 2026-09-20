@@ -2,6 +2,15 @@
 
 #include <QString>
 
+// Utility 库导出宏
+#if defined(UTILITY_EXPORTS)
+// 构建 DLL 时导出
+#    define UTILITY_API __declspec(dllexport)
+#else
+// 使用 DLL 时导入
+#    define UTILITY_API __declspec(dllimport)
+#endif
+
 /**
  * @file AppPathManager.h
  * @brief 应用程序路径管理器定义
@@ -9,7 +18,7 @@
  * 定义了应用程序路径管理类，负责管理配置文件、资源文件、插件等路径。
  */
 
-class AppPathManager
+class UTILITY_API AppPathManager
 {
 public:
     /// 获取应用程序本地数据根目录（唯一路径控制源）
