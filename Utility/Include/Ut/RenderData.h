@@ -1,26 +1,29 @@
 #pragma once
 
 #include "Vec.h"
+#include "VertexFormat.hpp"
+#include "PrimitiveType.hpp"
+
 #include <cstddef>
 #include <vector>
 
 /**
  * @brief 渲染数据传输结构 (2D + 3D)
+ *
+ * ## 重构说明
+ *
+ * 此文件此前定义了 RenderPrimitiveType、RenderVertex、MeshVertex 等结构。
+ * 现在统一引用 Ut::VertexFormat.hpp 和 Ut::PrimitiveType.hpp 中的定义。
+ * 保留此文件是为了向后兼容旧的 API 使用方。
  */
 
 namespace Ut
 {
-    // ==================== 图元渲染类型 ====================
+    // ==================== 图元渲染类型（转发） ====================
+    // 统一引用 PrimitiveType.hpp
 
-    enum class RenderPrimitiveType : unsigned char
-    {
-        Points,
-        Lines,
-        LineStrip,
-        LineLoop,
-        Triangles,
-        TriangleFan,
-    };
+    /// @deprecated 请使用 Ut::PrimitiveType
+    using RenderPrimitiveType = PrimitiveType;
 
     // ==================== 2D 渲染数据结构 (兼容旧代码) ====================
 
@@ -29,7 +32,7 @@ namespace Ut
      */
     struct RenderBatch
     {
-        RenderPrimitiveType primitiveType;
+        PrimitiveType primitiveType;
         const Ut::Vec2f* vertices;
         size_t vertexCount;
         const Ut::Vec3f* colors;
@@ -57,7 +60,7 @@ namespace Ut
      */
     struct RenderBatch3D
     {
-        RenderPrimitiveType primitiveType;
+        PrimitiveType primitiveType;
         const Vec3f* vertices;
         size_t vertexCount;
         const Vec3f* normals;
@@ -80,14 +83,11 @@ namespace Ut
         float projectionMatrix[16];
     };
 
-    /**
-     * @brief 网格顶点（带法线）
-     */
-    struct MeshVertex
-    {
-        Vec3f position;
-        Vec3f normal;
-    };
+    // ==================== 网格顶点（转发） ====================
+    // 统一引用 VertexFormat.hpp
+
+    /// @deprecated 请使用 Ut::VertexP3N3
+    using MeshVertex = VertexP3N3;
 
     /**
      * @brief 网格数据
@@ -104,19 +104,16 @@ namespace Ut
 
     /**
      * @brief 渲染顶点（含颜色）
+     * @deprecated 请使用 Ut::VertexP3C3
      */
-    struct RenderVertex
-    {
-        Vec3f position;
-        Vec3f color;
-    };
+    using RenderVertex = VertexP3C3;
 
     /**
      * @brief 单条渲染命令
      */
     struct RenderCommand
     {
-        RenderPrimitiveType primitiveType = RenderPrimitiveType::Lines;
+        PrimitiveType primitiveType = PrimitiveType::Lines;
         std::vector<RenderVertex> vertices;
         bool useVertexColors = false;
         float lineWidth = 1.0f;
