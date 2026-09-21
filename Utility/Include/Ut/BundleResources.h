@@ -49,8 +49,15 @@ namespace Ut
         }
 
         /// 查找打包的库目录
+        /// @note 必须在 QApplication 创建后调用，否则返回空字符串
         inline QString findBundledLibDir()
         {
+            // 使用 QCoreApplication::instance() 检查，因为 QApplication 继承自 QCoreApplication
+            // 如果 QApplication 尚未创建，instance() 返回 nullptr
+            if (!QCoreApplication::instance())
+            {
+                return QString();
+            }
             QString libDir = QCoreApplication::applicationDirPath() + "/../Resources/lib";
             if (QDir(libDir).exists())
             {
@@ -60,8 +67,13 @@ namespace Ut
         }
 
         /// 查找 Ghostscript 资源目录 (字体、初始化文件等)
+        /// @note 必须在 QApplication 创建后调用，否则返回空字符串
         inline QString findGhostscriptResourceDir()
         {
+            if (!QCoreApplication::instance())
+            {
+                return QString();
+            }
             QString gsRes = QCoreApplication::applicationDirPath() + "/../Resources/share/ghostscript";
             if (QDir(gsRes).exists())
             {
@@ -70,7 +82,7 @@ namespace Ut
             return QString();
         }
 
-        /// 设置动态库搜索路径 (必须在 QApplication 构造前调用)
+        /// 设置动态库搜索路径 (必须在 QApplication 构造后调用)
         inline void setupLibraryPath()
         {
             QString libDir = findBundledLibDir();
@@ -86,7 +98,7 @@ namespace Ut
             }
         }
 
-        /// 设置 Ghostscript 资源路径 (必须在 QApplication 构造前调用)
+        /// 设置 Ghostscript 资源路径 (必须在 QApplication 构造后调用)
         inline void setupGhostscriptPath()
         {
             QString gsRes = findGhostscriptResourceDir();
@@ -99,7 +111,8 @@ namespace Ut
             qputenv("GS_FONTPATH", (gsRes + "/fonts").toUtf8());
         }
 
-        /// 一次性初始化所有路径 (main() 入口最早调用)
+        /// 一次性初始化所有路径
+        /// @note 必须在 QApplication 创建后调用
         inline void initialize()
         {
             setupLibraryPath();
