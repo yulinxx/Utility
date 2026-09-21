@@ -1,15 +1,7 @@
 #pragma once
 
 #include <QString>
-
-// Utility 库导出宏
-#if defined(UTILITY_EXPORTS)
-// 构建 DLL 时导出
-#    define UTILITY_API __declspec(dllexport)
-#else
-// 使用 DLL 时导入
-#    define UTILITY_API __declspec(dllimport)
-#endif
+#include "UtilityAPI.h"
 
 /**
  * @file AppPathManager.h
