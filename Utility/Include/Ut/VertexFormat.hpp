@@ -198,12 +198,4 @@ namespace Ut
     static_assert(sizeof(VertexP3T2C4_Textured) == 36,
         "VertexP3T2C4_Textured 必须与 vertexStride(WorldPosTexColor) 一致");
 
-    // ==================== 别名（兼容性） ====================
-    // 为保持与旧代码的兼容性，提供常用别名
-
-    using VertexPositionColor = VertexP3C3;
-    using VertexPositionColorAlpha = VertexP3C4;
-    using VertexPositionNormal = VertexP3N3;
-    using OverlayVertex = VertexP3C4;  // 覆盖层历史名称
-
 }  // namespace Ut
