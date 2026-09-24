@@ -9,7 +9,6 @@ project(SanYiCore
     LANGUAGES CXX
 )
 
-option(BUILD_UTILITY_TESTS "Build Utility unit tests" OFF)
 
 add_subdirectory(Utility)
 

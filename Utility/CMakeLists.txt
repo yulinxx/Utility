@@ -78,7 +78,6 @@ PROPERTIES
     COMPILE_OPTIONS "$<$<NOT:$<CXX_COMPILER_ID:MSVC>>:-fvisibility=default>"
 )
 
-option(BUILD_UTILITY_TESTS "Build Utility unit tests" OFF)
 
 if(BUILD_UTILITY_TESTS)
     enable_testing()
