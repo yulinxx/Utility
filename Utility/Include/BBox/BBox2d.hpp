@@ -186,9 +186,21 @@ namespace Ut
         }
 
         /// 按指定量收缩包围盒（各边向内收缩）
+        /// 如果收缩量过大导致包围盒无效，返回无效包围盒
         BBox2 deflated(T amount) const
         {
-            return inflated(-amount);
+            if (!isValid())
+            {
+                return BBox2();
+            }
+            // 检查收缩量是否会导致包围盒无效
+            T halfWidth = width() * T(0.5);
+            T halfHeight = height() * T(0.5);
+            if (amount >= halfWidth || amount >= halfHeight)
+            {
+                return BBox2();  // 返回无效包围盒
+            }
+            return BBox2(minPt.x() + amount, minPt.y() + amount, maxPt.x() - amount, maxPt.y() - amount);
         }
 
         // ==================== 比较运算符 ====================

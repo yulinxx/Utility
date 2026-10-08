@@ -134,7 +134,14 @@ namespace Ut
         /** 计算两角度之间的最小差值，结果 ∈ [-π, π] */
         static inline double angleDiff(double a, double b)
         {
-            double d = normalizeAnglePiToPi(a - b);
+            double rawDiff = a - b;
+            double d = normalizeAnglePiToPi(rawDiff);
+            // 处理边界情况：当差值恰好为 ±π 时，normalizeAnglePiToPi 会统一映射到 -π
+            // 但根据方向应该返回 +π 或 -π，这里保留原始差值的符号
+            if (std::abs(std::abs(rawDiff) - M_PI) < 1e-12)
+            {
+                return (rawDiff >= 0) ? M_PI : -M_PI;
+            }
             return d;
         }
 
