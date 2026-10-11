@@ -483,7 +483,8 @@ TEST(Vec2dTest, Assignment)
 TEST(Vec2dTest, SelfAssignment)
 {
     Vec2d v(1.0, 2.0);
-    v = v;
+    auto&& ref = v;
+    v = ref;
     EXPECT_DOUBLE_EQ(v.x(), 1.0);
     EXPECT_DOUBLE_EQ(v.y(), 2.0);
 }

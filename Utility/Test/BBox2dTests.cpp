@@ -332,7 +332,8 @@ TEST(BBox2dTest, Assignment)
 TEST(BBox2dTest, SelfAssignment)
 {
     BBox2d bbox(0.0, 0.0, 10.0, 10.0);
-    bbox = bbox;
+    auto&& ref = bbox;
+    bbox = ref;
     EXPECT_DOUBLE_EQ(bbox.minPt.x(), 0.0);
     EXPECT_DOUBLE_EQ(bbox.minPt.y(), 0.0);
     EXPECT_DOUBLE_EQ(bbox.maxPt.x(), 10.0);
