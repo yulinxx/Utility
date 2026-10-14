@@ -101,6 +101,19 @@ namespace Ut
             return minPt[0] <= other.maxPt[0] && maxPt[0] >= other.minPt[0] && minPt[1] <= other.maxPt[1] &&
                 maxPt[1] >= other.minPt[1] && minPt[2] <= other.maxPt[2] && maxPt[2] >= other.minPt[2];
         }
+
+        // ==================== 比较运算符 ====================
+        // 与 BBox2 同语义：空间索引按「值删除」依赖它做精确匹配（见 EntitySpatialIndex / SpatialIndex3D）
+
+        bool operator==(const BBox3& other) const
+        {
+            return minPt == other.minPt && maxPt == other.maxPt;
+        }
+
+        bool operator!=(const BBox3& other) const
+        {
+            return !(*this == other);
+        }
     };
 
     using BBox3f = BBox3<float>;

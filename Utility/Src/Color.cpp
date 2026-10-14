@@ -2,6 +2,9 @@
 #include <sstream>
 #include <iomanip>
 #include <cmath>
+#include <cctype>
+#include <stdexcept>
+#include <string>
 
 namespace Ut
 {
@@ -91,11 +94,18 @@ namespace Ut
             throw std::invalid_argument("Hex string must be 6 or 8 characters long");
         }
 
-        // 解析十六进制值
-        unsigned int rgbValue;
-        std::stringstream ss;
-        ss << std::hex << strCleanHex;
-        ss >> rgbValue;
+        // 解析十六进制值：先全量验字符再 stoul。
+        // 旧实现用 stringstream，遇到非法字符（如 "gggggg"）解析失败时
+        // rgbValue 保持未初始化，随后的位移读是 UB；非法字符与长度不符
+        // 一样抛 invalid_argument，保持单一错误通道。
+        for (const unsigned char c : strCleanHex)
+        {
+            if (!std::isxdigit(c))
+            {
+                throw std::invalid_argument("Hex string must contain only 0-9a-fA-F");
+            }
+        }
+        const unsigned int rgbValue = std::stoul(strCleanHex, nullptr, 16);
 
         if (strCleanHex.length() == 6)
         {
