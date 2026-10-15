@@ -36,6 +36,16 @@ list(FILTER LIB_HEADERS EXCLUDE REGEX "${SANYI_HEADER_EXCLUDE_REGEX}")
 find_path(BSHOSHANY_THREAD_POOL_INCLUDE_DIRS "BS_thread_pool.hpp")
 find_package(Threads REQUIRED)
 
+# --- 对外包含目录 -----------------------------------------------------------
+# Include 根目录 + 其下全部子目录（Ut / BBox / Color / Mat / Vec / ...）。
+# 子目录清单由 glob 得出，新增子目录时无需改这里；散落在 Include/ 根部的头文件
+# （AppPathManager.h 等）已被 Include 根目录覆盖，从子目录列表中滤掉。
+file(GLOB UTILITY_PUBLIC_INCLUDE_DIRS CONFIGURE_DEPENDS
+    "${CMAKE_CURRENT_SOURCE_DIR}/Include/*"
+)
+list(FILTER UTILITY_PUBLIC_INCLUDE_DIRS EXCLUDE REGEX "\\.(h|hpp|inl|inc)$")
+list(PREPEND UTILITY_PUBLIC_INCLUDE_DIRS "${CMAKE_CURRENT_SOURCE_DIR}/Include")
+
 # --- 统一入口创建 DLL ---
 sanyi_add_shared_library(${LIB_NAME}
     FOLDER "${LIB_FOLDER}"
@@ -47,12 +57,7 @@ sanyi_add_shared_library(${LIB_NAME}
     SOURCES ${LIB_SOURCES}
     HEADERS ${LIB_HEADERS}
     PUBLIC_INCLUDE_DIRS
-        "${CMAKE_CURRENT_SOURCE_DIR}/Include"
-        "${CMAKE_CURRENT_SOURCE_DIR}/Include/Ut"
-        "${CMAKE_CURRENT_SOURCE_DIR}/Include/BBox"
-        "${CMAKE_CURRENT_SOURCE_DIR}/Include/Color"
-        "${CMAKE_CURRENT_SOURCE_DIR}/Include/Mat"
-        "${CMAKE_CURRENT_SOURCE_DIR}/Include/Vec"
+        ${UTILITY_PUBLIC_INCLUDE_DIRS}
         ${BSHOSHANY_THREAD_POOL_INCLUDE_DIRS}
     LINK_LIBRARIES
         Threads::Threads
@@ -99,12 +104,7 @@ message(STATUS "----------------------------------------")
 sanyi_export_imported_target(${LIB_NAME}
     LIB_NAME "${LIB_NAME}"
     PUBLIC_INCLUDE_DIRS
-        "${CMAKE_CURRENT_SOURCE_DIR}/Include"
-        "${CMAKE_CURRENT_SOURCE_DIR}/Include/Ut"
-        "${CMAKE_CURRENT_SOURCE_DIR}/Include/BBox"
-        "${CMAKE_CURRENT_SOURCE_DIR}/Include/Color"
-        "${CMAKE_CURRENT_SOURCE_DIR}/Include/Mat"
-        "${CMAKE_CURRENT_SOURCE_DIR}/Include/Vec"
+        ${UTILITY_PUBLIC_INCLUDE_DIRS}
         ${BSHOSHANY_THREAD_POOL_INCLUDE_DIRS}
     INTERFACE_LINK_LIBRARIES
         Threads::Threads

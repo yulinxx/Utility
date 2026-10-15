@@ -28,7 +28,9 @@ target_link_libraries(UtilityTests PRIVATE
     GTest::gmock_main
 )
 
-gtest_discover_tests(UtilityTests)
+# PRE_TEST：构建期发现时 exe 曾以 0xc0000135 启动失败（运行库 DLL 拷贝时序/PATH）；
+# 推迟到 ctest 运行时发现（与 UI/PythonHost 一致）。
+gtest_discover_tests(UtilityTests DISCOVERY_MODE PRE_TEST)
 
 set_property(TARGET UtilityTests PROPERTY FOLDER "Tests")
 
