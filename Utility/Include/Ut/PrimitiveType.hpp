@@ -43,13 +43,13 @@ namespace Ut
      */
     enum class PrimitiveType : uint8_t
     {
-        Points        = 0,
-        Lines         = 1,
-        LineStrip     = 2,
-        LineLoop      = 3,
-        Triangles     = 4,
+        Points = 0,
+        Lines = 1,
+        LineStrip = 2,
+        LineLoop = 3,
+        Triangles = 4,
         TriangleStrip = 5,
-        TriangleFan   = 6   // CAD 专用，需展开为 TriangleList
+        TriangleFan = 6  // CAD 专用，需展开为 TriangleList
     };
 
     /// 图元类型总数
@@ -76,5 +76,4 @@ namespace Ut
     {
         return (type == PrimitiveType::TriangleFan) ? PrimitiveType::Triangles : type;
     }
-
 }  // namespace Ut

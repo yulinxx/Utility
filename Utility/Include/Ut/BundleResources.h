@@ -118,5 +118,5 @@ namespace Ut
             setupLibraryPath();
             setupGhostscriptPath();
         }
-    }
-}
+    }  // namespace BundleResources
+}  // namespace Ut

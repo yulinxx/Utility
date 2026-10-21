@@ -46,13 +46,13 @@ namespace Ut
 
     enum class VertexFormat : uint8_t
     {
-        PositionColor,        // 位置float3 + 颜色float3 = 24字节
-        PositionColorAlpha,   // 位置float3 + 颜色float4 = 28字节
-        PositionNormal,       // 位置float3 + 法线float3 = 24字节
-        PositionUVColor,     // 位置float2 + UVfloat2 + 颜色float4 = 32字节
-        WorldPosUVColor,      // 位置float3 + UVfloat2 + 颜色float4 = 36字节
-        WorldAnchorOffsetColor, // 世界锚点float3 + 像素偏移float2 + 颜色float4 = 36字节
-        WorldPosTexColor      // 位置float3 + 纹理坐标float2 + 颜色float4 = 36字节
+        PositionColor,           // 位置float3 + 颜色float3 = 24字节
+        PositionColorAlpha,      // 位置float3 + 颜色float4 = 28字节
+        PositionNormal,          // 位置float3 + 法线float3 = 24字节
+        PositionUVColor,         // 位置float2 + UVfloat2 + 颜色float4 = 32字节
+        WorldPosUVColor,         // 位置float3 + UVfloat2 + 颜色float4 = 36字节
+        WorldAnchorOffsetColor,  // 世界锚点float3 + 像素偏移float2 + 颜色float4 = 36字节
+        WorldPosTexColor         // 位置float3 + 纹理坐标float2 + 颜色float4 = 36字节
     };
 
     /**
@@ -65,13 +65,20 @@ namespace Ut
     {
         switch (fmt)
         {
-        case VertexFormat::PositionColor:          return 24;  // float3 + float3
-        case VertexFormat::PositionColorAlpha:     return 28;  // float3 + float4
-        case VertexFormat::PositionNormal:         return 24;  // float3 + float3
-        case VertexFormat::PositionUVColor:        return 32;  // float2 + float2 + float4
-        case VertexFormat::WorldPosUVColor:        return 36;  // float3 + float2 + float4
-        case VertexFormat::WorldAnchorOffsetColor: return 36;  // float3 + float2 + float4
-        case VertexFormat::WorldPosTexColor:       return 36;  // float3 + float2 + float4
+        case VertexFormat::PositionColor:
+            return 24;  // float3 + float3
+        case VertexFormat::PositionColorAlpha:
+            return 28;  // float3 + float4
+        case VertexFormat::PositionNormal:
+            return 24;  // float3 + float3
+        case VertexFormat::PositionUVColor:
+            return 32;  // float2 + float2 + float4
+        case VertexFormat::WorldPosUVColor:
+            return 36;  // float3 + float2 + float4
+        case VertexFormat::WorldAnchorOffsetColor:
+            return 36;  // float3 + float2 + float4
+        case VertexFormat::WorldPosTexColor:
+            return 36;  // float3 + float2 + float4
         }
         return 0;
     }
@@ -88,12 +95,11 @@ namespace Ut
      */
     struct VertexP3C3
     {
-        float px, py, pz;    // 位置
-        float cr, cg, cb;    // 颜色 (RGB)
+        float px, py, pz;  // 位置
+        float cr, cg, cb;  // 颜色 (RGB)
     };
 
-    static_assert(sizeof(VertexP3C3) == 24,
-        "VertexP3C3 必须与 vertexStride(PositionColor) 一致");
+    static_assert(sizeof(VertexP3C3) == 24, "VertexP3C3 必须与 vertexStride(PositionColor) 一致");
 
     /**
      * @brief 位置 + RGBA颜色 (对应 VertexFormat::PositionColorAlpha)
@@ -104,12 +110,11 @@ namespace Ut
      */
     struct VertexP3C4
     {
-        float px, py, pz;            // 位置
-        float cr, cg, cb, ca;        // 颜色 (RGBA)
+        float px, py, pz;      // 位置
+        float cr, cg, cb, ca;  // 颜色 (RGBA)
     };
 
-    static_assert(sizeof(VertexP3C4) == 28,
-        "VertexP3C4 必须与 vertexStride(PositionColorAlpha) 一致");
+    static_assert(sizeof(VertexP3C4) == 28, "VertexP3C4 必须与 vertexStride(PositionColorAlpha) 一致");
 
     /**
      * @brief 位置 + 法线 (对应 VertexFormat::PositionNormal)
@@ -120,12 +125,11 @@ namespace Ut
      */
     struct VertexP3N3
     {
-        float px, py, pz;    // 位置
-        float nx, ny, nz;    // 法线
+        float px, py, pz;  // 位置
+        float nx, ny, nz;  // 法线
     };
 
-    static_assert(sizeof(VertexP3N3) == 24,
-        "VertexP3N3 必须与 vertexStride(PositionNormal) 一致");
+    static_assert(sizeof(VertexP3N3) == 24, "VertexP3N3 必须与 vertexStride(PositionNormal) 一致");
 
     /**
      * @brief 位置 + UV + RGBA颜色 (对应 VertexFormat::PositionUVColor)
@@ -136,13 +140,12 @@ namespace Ut
      */
     struct VertexP2T2C4
     {
-        float px, py;                // 位置 (屏幕空间)
-        float u, v;                  // 纹理坐标
-        float cr, cg, cb, ca;        // 颜色 (RGBA)
+        float px, py;          // 位置 (屏幕空间)
+        float u, v;            // 纹理坐标
+        float cr, cg, cb, ca;  // 颜色 (RGBA)
     };
 
-    static_assert(sizeof(VertexP2T2C4) == 32,
-        "VertexP2T2C4 必须与 vertexStride(PositionUVColor) 一致");
+    static_assert(sizeof(VertexP2T2C4) == 32, "VertexP2T2C4 必须与 vertexStride(PositionUVColor) 一致");
 
     /**
      * @brief 世界位置 + UV + RGBA颜色 (对应 VertexFormat::WorldPosUVColor)
@@ -153,13 +156,12 @@ namespace Ut
      */
     struct VertexP3T2C4
     {
-        float px, py, pz;            // 位置 (世界空间)
-        float u, v;                  // 纹理坐标
-        float cr, cg, cb, ca;        // 颜色 (RGBA)
+        float px, py, pz;      // 位置 (世界空间)
+        float u, v;            // 纹理坐标
+        float cr, cg, cb, ca;  // 颜色 (RGBA)
     };
 
-    static_assert(sizeof(VertexP3T2C4) == 36,
-        "VertexP3T2C4 必须与 vertexStride(WorldPosUVColor) 一致");
+    static_assert(sizeof(VertexP3T2C4) == 36, "VertexP3T2C4 必须与 vertexStride(WorldPosUVColor) 一致");
 
     /**
      * @brief 世界锚点 + 像素偏移 + RGBA颜色 (对应 VertexFormat::WorldAnchorOffsetColor)
@@ -173,13 +175,12 @@ namespace Ut
      */
     struct VertexP3O2C4
     {
-        float ax, ay, az;            // 世界锚点
-        float ox, oy;                // 像素偏移
-        float cr, cg, cb, ca;        // 颜色 (RGBA)
+        float ax, ay, az;      // 世界锚点
+        float ox, oy;          // 像素偏移
+        float cr, cg, cb, ca;  // 颜色 (RGBA)
     };
 
-    static_assert(sizeof(VertexP3O2C4) == 36,
-        "VertexP3O2C4 必须与 vertexStride(WorldAnchorOffsetColor) 一致");
+    static_assert(sizeof(VertexP3O2C4) == 36, "VertexP3O2C4 必须与 vertexStride(WorldAnchorOffsetColor) 一致");
 
     /**
      * @brief 世界位置 + 纹理坐标 + 颜色 (对应 VertexFormat::WorldPosTexColor)
@@ -190,12 +191,11 @@ namespace Ut
      */
     struct VertexP3T2C4_Textured
     {
-        float px, py, pz;            // 位置 (世界空间)
-        float u, v;                   // 纹理坐标
-        float cr, cg, cb, ca;        // 颜色 (RGBA)
+        float px, py, pz;      // 位置 (世界空间)
+        float u, v;            // 纹理坐标
+        float cr, cg, cb, ca;  // 颜色 (RGBA)
     };
 
-    static_assert(sizeof(VertexP3T2C4_Textured) == 36,
-        "VertexP3T2C4_Textured 必须与 vertexStride(WorldPosTexColor) 一致");
-
+    static_assert(
+        sizeof(VertexP3T2C4_Textured) == 36, "VertexP3T2C4_Textured 必须与 vertexStride(WorldPosTexColor) 一致");
 }  // namespace Ut

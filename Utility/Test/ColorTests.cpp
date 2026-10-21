@@ -49,8 +49,8 @@ TEST(ColorFromHexTest, NonHexCharactersThrowInvalidArgument)
 
 TEST(ColorFromHexTest, WrongLengthThrowsInvalidArgument)
 {
-    EXPECT_THROW(Ut::Color::fromHex("#12345"), std::invalid_argument);   // 5 位
-    EXPECT_THROW(Ut::Color::fromHex("#1234567"), std::invalid_argument); // 7 位
+    EXPECT_THROW(Ut::Color::fromHex("#12345"), std::invalid_argument);    // 5 位
+    EXPECT_THROW(Ut::Color::fromHex("#1234567"), std::invalid_argument);  // 7 位
     EXPECT_THROW(Ut::Color::fromHex(""), std::invalid_argument);
     EXPECT_THROW(Ut::Color::fromHex("#"), std::invalid_argument);
 }
