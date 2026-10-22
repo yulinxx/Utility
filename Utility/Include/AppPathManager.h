@@ -73,6 +73,15 @@ public:
     /// Linux:   ~/.local/share/SanYiCAD/data/
     static QString dataDir();
 
+    /// 获取主数据库文件路径（设置与业务数据同库）
+    /// Windows: C:/Users/<user>/AppData/Local/SanYiCAD/data/cad_database.sqlite
+    /// macOS:   ~/Library/Application Support/SanYiCAD/data/cad_database.sqlite
+    /// Linux:   ~/.local/share/SanYiCAD/data/cad_database.sqlite
+    ///
+    /// 唯一来源：AppInitializer（业务库）与 SettingsService（设置库）都从这里取路径。
+    /// 之前两处各写一份字符串拼接，改目录规则时必然漏改一处。
+    static QString databasePath();
+
     /// 获取安全模块配置文件路径
     /// Windows: C:/Users/<user>/AppData/Local/SanYiCAD/config/safety_users.conf
     /// macOS:   ~/Library/Application Support/SanYiCAD/config/safety_users.conf

@@ -166,6 +166,18 @@ QString AppPathManager::dataDir()
 }
 
 /**
+ * @brief 获取主数据库文件路径
+ *
+ * 路径构成：dataDir() / cad_database.sqlite
+ * 业务数据（Engine/Persistence）与设置（UI/Common 的 SettingsService）共用同一个库文件，
+ * 路径只在这里定义一处。
+ */
+QString AppPathManager::databasePath()
+{
+    return dataDir() + QStringLiteral("/cad_database.sqlite");
+}
+
+/**
  * @brief 获取安全模块配置文件路径
  *
  * 路径构成：configDir() / safety_users.conf
