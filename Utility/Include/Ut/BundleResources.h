@@ -16,35 +16,30 @@ namespace Ut
         /// 优先级：Resources/bin/ > 同级目录 > tools/ 子目录 > PATH
         inline QString findBundledTool(const QString& toolName)
         {
-            // 1. App Bundle 内 Resources/bin/
             QString bundleBin = QCoreApplication::applicationDirPath() + "/../Resources/bin/" + toolName;
             if (QFile::exists(bundleBin))
             {
                 return bundleBin;
             }
 
-            // 2. 同级目录 (Windows 便携部署 / 扁平结构)
             QString flatBin = QCoreApplication::applicationDirPath() + "/" + toolName;
             if (QFile::exists(flatBin))
             {
                 return flatBin;
             }
 
-            // 3. tools/ 子目录 (结构化部署)
             QString toolBin = QCoreApplication::applicationDirPath() + "/tools/" + toolName;
             if (QFile::exists(toolBin))
             {
                 return toolBin;
             }
 
-            // 4. 结构化部署: tools/<tool>/bin/
             QString structuredBin = QCoreApplication::applicationDirPath() + "/tools/" + toolName + "/bin/" + toolName;
             if (QFile::exists(structuredBin))
             {
                 return structuredBin;
             }
 
-            // 4. 回退到系统 PATH (由 QProcess 自动解析)
             return toolName;
         }
 
@@ -52,8 +47,6 @@ namespace Ut
         /// @note 必须在 QApplication 创建后调用，否则返回空字符串
         inline QString findBundledLibDir()
         {
-            // 使用 QCoreApplication::instance() 检查，因为 QApplication 继承自 QCoreApplication
-            // 如果 QApplication 尚未创建，instance() 返回 nullptr
             if (!QCoreApplication::instance())
             {
                 return QString();

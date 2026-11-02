@@ -18,9 +18,9 @@ namespace Ut
         float width = 1200.0f;  // 台面宽（毫米）
         float height = 800.0f;  // 台面高（毫米）
 
-        Ut::Color outerColor;    // 台面外背景色
-        Ut::Color surfaceColor;  // 台面底色
-        Ut::Color borderColor;   // 边框颜色
+        Ut::Color outerColor;
+        Ut::Color surfaceColor;
+        Ut::Color borderColor;
         float borderWidthPx = 1.5f;
 
         bool visible = true;
@@ -30,9 +30,6 @@ namespace Ut
         float borderZ = -0.4f;
     };
 
-    /**
-     * @brief 网格设置
-     */
     struct GridSettings
     {
         bool visible = true;
@@ -50,18 +47,12 @@ namespace Ut
         float majorZ = -0.4f;
     };
 
-    /**
-     * @brief 标尺位置
-     */
     enum class RulerPosition : unsigned char
     {
         Top = 0,
         Left,
     };
 
-    /**
-     * @brief 单个标尺设置（顶部或左侧）
-     */
     struct RulerSettings
     {
         bool visible = true;
@@ -84,9 +75,6 @@ namespace Ut
         RulerPosition position = RulerPosition::Top;
     };
 
-    /**
-     * @brief 整体场景环境配置
-     */
     struct SceneEnvironmentSettings
     {
         TableSettings table;

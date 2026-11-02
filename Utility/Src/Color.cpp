@@ -82,13 +82,11 @@ namespace Ut
     {
         std::string strCleanHex = hex;
 
-        // 移除#前缀
         if (!strCleanHex.empty() && strCleanHex[0] == '#')
         {
             strCleanHex = strCleanHex.substr(1);
         }
 
-        // 验证长度
         if (strCleanHex.length() != 6 && strCleanHex.length() != 8)
         {
             throw std::invalid_argument("Hex string must be 6 or 8 characters long");
@@ -109,7 +107,6 @@ namespace Ut
 
         if (strCleanHex.length() == 6)
         {
-            // #RRGGBB格式
             int r = (rgbValue >> 16) & 0xFF;
             int g = (rgbValue >> 8) & 0xFF;
             int b = rgbValue & 0xFF;
@@ -117,7 +114,6 @@ namespace Ut
         }
         else
         {
-            // #RRGGBBAA格式
             int r = (rgbValue >> 24) & 0xFF;
             int g = (rgbValue >> 16) & 0xFF;
             int b = (rgbValue >> 8) & 0xFF;
@@ -140,7 +136,7 @@ namespace Ut
         return Color(r, g, b, alpha);
     }
 
-    // ==================== 获取颜色分量实现 ====================
+
 
     float Color::red() const
     {
@@ -254,7 +250,7 @@ namespace Ut
         return l;
     }
 
-    // ==================== 设置颜色分量实现 ====================
+
     void Color::setRGBA(float r, float g, float b, float a /*=1.0*/)
     {
         m_data[0] = std::clamp(r, 0.0f, 1.0f);
@@ -321,7 +317,7 @@ namespace Ut
         HSLtoRGB(hue, saturation, lightness, m_data[0], m_data[1], m_data[2]);
     }
 
-    // ==================== 颜色操作实现 ====================
+
 
     Color Color::blend(const Color& other, float factor) const
     {
@@ -385,7 +381,7 @@ namespace Ut
         }
     }
 
-    // ==================== 颜色索引功能实现 ====================
+
 
     uint32_t Color::toIndex() const
     {
@@ -428,7 +424,7 @@ namespace Ut
         return static_cast<uint8_t>(gray * 255.0f);
     }
 
-    // ==================== 预定义颜色实现 ====================
+
 
     Color Color::Black()
     {
@@ -480,7 +476,7 @@ namespace Ut
         return Color(0.0f, 0.0f, 0.0f, 0.0f);
     }
 
-    // ==================== 转换方法实现 ====================
+
 
     std::string Color::toHexRGB() const
     {
@@ -505,7 +501,7 @@ namespace Ut
         return ss.str();
     }
 
-    // ==================== OpenGL相关方法实现 ====================
+
 
     const float* Color::data() const
     {
@@ -530,7 +526,7 @@ namespace Ut
         array[3] = m_data[3];
     }
 
-    // ==================== HSV/HSL转换函数实现 ====================
+
 
     void Color::RGBtoHSV(float r, float g, float b, float& h, float& s, float& v)
     {

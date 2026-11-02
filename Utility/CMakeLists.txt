@@ -59,9 +59,9 @@ sanyi_add_shared_library(${LIB_NAME}
     PUBLIC_INCLUDE_DIRS
         ${UTILITY_PUBLIC_INCLUDE_DIRS}
         ${BSHOSHANY_THREAD_POOL_INCLUDE_DIRS}
-    LINK_LIBRARIES
+    PRIVATE_LINK_LIBRARIES
         Threads::Threads
-    QT_COMPONENTS
+    PUBLIC_QT_COMPONENTS
         Core
 )
 

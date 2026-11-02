@@ -13,15 +13,8 @@
 
 namespace Ut
 {
-    // ==================== 图元渲染类型 ====================
-
     using RenderPrimitiveType = PrimitiveType;
 
-    // ==================== 2D 渲染数据结构 ====================
-
-    /**
-     * @brief 2D渲染批次
-     */
     struct RenderBatch
     {
         PrimitiveType primitiveType;
@@ -33,9 +26,6 @@ namespace Ut
         float pointSize;
     };
 
-    /**
-     * @brief 2D渲染数据包
-     */
     struct RenderDataPackage
     {
         const RenderBatch* batches;
@@ -45,11 +35,6 @@ namespace Ut
         int viewport[4];
     };
 
-    // ==================== 3D 渲染数据结构 ====================
-
-    /**
-     * @brief 3D渲染批次
-     */
     struct RenderBatch3D
     {
         PrimitiveType primitiveType;
@@ -64,9 +49,6 @@ namespace Ut
         float lineWidth;
     };
 
-    /**
-     * @brief 3D渲染数据包
-     */
     struct RenderDataPackage3D
     {
         const RenderBatch3D* batches;
@@ -75,13 +57,8 @@ namespace Ut
         float projectionMatrix[16];
     };
 
-    // ==================== 网格顶点 ====================
-
     using MeshVertex = VertexP3N3;
 
-    /**
-     * @brief 网格数据
-     */
     struct MeshData
     {
         const MeshVertex* vertices;
@@ -90,13 +67,8 @@ namespace Ut
         size_t indexCount;
     };
 
-    // ==================== 通用渲染命令（RenderDataConsumer 使用） ====================
-
     using RenderVertex = VertexP3C3;
 
-    /**
-     * @brief 单条渲染命令
-     */
     struct RenderCommand
     {
         PrimitiveType primitiveType = PrimitiveType::Lines;
@@ -115,9 +87,6 @@ namespace Ut
         }
     };
 
-    /**
-     * @brief 渲染命令列表
-     */
     struct RenderCommandList
     {
         std::vector<RenderCommand> commands;
