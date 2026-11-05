@@ -380,7 +380,7 @@ target_link_libraries(YourTarget PRIVATE Utility)
 
 | 变量 | 类型 | 默认值 | 说明 |
 |------|------|--------|------|
-| `BUILD_UTILITY_TESTS` | `option` | `OFF` | 是否构建单元测试 |
+| `BUILD_UTILITY_TESTS` | `option` | `ON` | 是否构建单元测试（GTest 缺失时自动置 OFF） |
 | `SANYI_ROOT` | `PATH` | 自动检测 | SanYi 项目根目录 |
 
 #### 编译特性
