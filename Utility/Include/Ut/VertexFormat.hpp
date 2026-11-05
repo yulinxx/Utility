@@ -99,7 +99,7 @@ namespace Ut
         float cr, cg, cb;  // 颜色 (RGB)
     };
 
-    static_assert(sizeof(VertexP3C3) == 24, "VertexP3C3 必须与 vertexStride(PositionColor) 一致");
+    static_assert(sizeof(VertexP3C3) == 24, "VertexP3C3 must match vertexStride(PositionColor)");
 
     /**
      * @brief 位置 + RGBA颜色 (对应 VertexFormat::PositionColorAlpha)
@@ -114,7 +114,7 @@ namespace Ut
         float cr, cg, cb, ca;  // 颜色 (RGBA)
     };
 
-    static_assert(sizeof(VertexP3C4) == 28, "VertexP3C4 必须与 vertexStride(PositionColorAlpha) 一致");
+    static_assert(sizeof(VertexP3C4) == 28, "VertexP3C4 must match vertexStride(PositionColorAlpha)");
 
     /**
      * @brief 位置 + 法线 (对应 VertexFormat::PositionNormal)
@@ -129,7 +129,7 @@ namespace Ut
         float nx, ny, nz;  // 法线
     };
 
-    static_assert(sizeof(VertexP3N3) == 24, "VertexP3N3 必须与 vertexStride(PositionNormal) 一致");
+    static_assert(sizeof(VertexP3N3) == 24, "VertexP3N3 must match vertexStride(PositionNormal)");
 
     /**
      * @brief 位置 + UV + RGBA颜色 (对应 VertexFormat::PositionUVColor)
@@ -145,7 +145,7 @@ namespace Ut
         float cr, cg, cb, ca;  // 颜色 (RGBA)
     };
 
-    static_assert(sizeof(VertexP2T2C4) == 32, "VertexP2T2C4 必须与 vertexStride(PositionUVColor) 一致");
+    static_assert(sizeof(VertexP2T2C4) == 32, "VertexP2T2C4 must match vertexStride(PositionUVColor)");
 
     /**
      * @brief 世界位置 + UV + RGBA颜色 (对应 VertexFormat::WorldPosUVColor)
@@ -161,7 +161,7 @@ namespace Ut
         float cr, cg, cb, ca;  // 颜色 (RGBA)
     };
 
-    static_assert(sizeof(VertexP3T2C4) == 36, "VertexP3T2C4 必须与 vertexStride(WorldPosUVColor) 一致");
+    static_assert(sizeof(VertexP3T2C4) == 36, "VertexP3T2C4 must match vertexStride(WorldPosUVColor)");
 
     /**
      * @brief 世界锚点 + 像素偏移 + RGBA颜色 (对应 VertexFormat::WorldAnchorOffsetColor)
@@ -180,7 +180,7 @@ namespace Ut
         float cr, cg, cb, ca;  // 颜色 (RGBA)
     };
 
-    static_assert(sizeof(VertexP3O2C4) == 36, "VertexP3O2C4 必须与 vertexStride(WorldAnchorOffsetColor) 一致");
+    static_assert(sizeof(VertexP3O2C4) == 36, "VertexP3O2C4 must match vertexStride(WorldAnchorOffsetColor)");
 
     /**
      * @brief 世界位置 + 纹理坐标 + 颜色 (对应 VertexFormat::WorldPosTexColor)
@@ -197,5 +197,5 @@ namespace Ut
     };
 
     static_assert(
-        sizeof(VertexP3T2C4_Textured) == 36, "VertexP3T2C4_Textured 必须与 vertexStride(WorldPosTexColor) 一致");
+        sizeof(VertexP3T2C4_Textured) == 36, "VertexP3T2C4_Textured must match vertexStride(WorldPosTexColor)");
 }  // namespace Ut
