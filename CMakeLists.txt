@@ -16,14 +16,14 @@
 #   2) Utility 是全仓最底层的叶子模块（只依赖 BS::thread_pool / Threads / Qt Core），
 #      没有兄弟 DLL 需要拉入，可脱离主程序单独编译。
 #
-#   3) 测试由内层 Utility/Utility/CMakeLists.txt 在 BUILD_UTILITY_TESTS=ON 时挂载，
+#   3) 测试由内层 Utility/Utility/CMakeLists.txt 在 BUILD_TESTS=ON 时挂载，
 #      本文件不得重复 add_subdirectory(Test)，否则 target 重定义。
 #
 # 用法：
 #   cmake -S Utility -B Utility/build
 #   cmake --build Utility/build --config Release
 #   ctest --test-dir Utility/build -C Release
-#   cmake -S Utility -B Utility/build -DBUILD_UTILITY_TESTS=OFF   # 只编库、不编测试
+#   cmake -S Utility -B Utility/build -DBUILD_TESTS=OFF   # 只编库、不编测试
 #   cmake -S Utility -B Utility/build -DBUILD_UTILITY_EXAMPLE=OFF # 不编示例
 # ============================================================================
 
@@ -43,12 +43,10 @@ sanyi_setup_compiler_options()
 option(BUILD_UTILITY_EXAMPLE "Build Utility usage example" ON)
 
 # --- 测试 -------------------------------------------------------------------
-sanyi_only_own_tests(BUILD_UTILITY_TESTS)
-if(BUILD_UTILITY_TESTS)
-    sanyi_find_gtest()
-endif()
+sanyi_only_own_tests(UTILITY)
+sanyi_finalize_tests()
 
-# 内层：创建 Utility DLL、挂载测试（BUILD_UTILITY_TESTS 时）、输出状态
+# 内层：创建 Utility DLL、挂载测试（BUILD_TESTS 时）、输出状态
 add_subdirectory(Utility)
 
 # --- 示例（独立构建专属） ---------------------------------------------------
@@ -62,7 +60,6 @@ message(STATUS "========================================")
 message(STATUS "  [Standalone: ${PROJECT_NAME}]")
 message(STATUS "========================================")
 message(STATUS "  Version:        ${PROJECT_VERSION}")
-message(STATUS "  Build Tests:    ${BUILD_UTILITY_TESTS}")
 message(STATUS "  Build Example:  ${BUILD_UTILITY_EXAMPLE}")
 message(STATUS "  Output:         ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}")
 message(STATUS "========================================")
