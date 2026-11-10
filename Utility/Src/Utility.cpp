@@ -4,7 +4,7 @@
 #include "BBox/BBox2d.hpp"
 
 // 用于测试验证链接/加载
-extern "C" UTILITY_API int SanYiUtilityVersion()
+extern "C" UTILITY_API int AprUtilityVersion()
 {
     return 1;
 }

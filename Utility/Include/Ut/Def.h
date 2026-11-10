@@ -10,19 +10,19 @@
 #endif
 
 #if defined(_MSC_VER)
-    #define SY_SUPPRESS_DEPRECATED_BEGIN __pragma(warning(push)) __pragma(warning(disable : 4996))
-    #define SY_SUPPRESS_DEPRECATED_END   __pragma(warning(pop))
+    #define APR_SUPPRESS_DEPRECATED_BEGIN __pragma(warning(push)) __pragma(warning(disable : 4996))
+    #define APR_SUPPRESS_DEPRECATED_END   __pragma(warning(pop))
 #elif defined(__clang__)
-    #define SY_SUPPRESS_DEPRECATED_BEGIN \
+    #define APR_SUPPRESS_DEPRECATED_BEGIN \
         _Pragma("clang diagnostic push") _Pragma("clang diagnostic ignored \"-Wdeprecated-declarations\"")
-    #define SY_SUPPRESS_DEPRECATED_END _Pragma("clang diagnostic pop")
+    #define APR_SUPPRESS_DEPRECATED_END _Pragma("clang diagnostic pop")
 #elif defined(__GNUC__)
-    #define SY_SUPPRESS_DEPRECATED_BEGIN \
+    #define APR_SUPPRESS_DEPRECATED_BEGIN \
         _Pragma("GCC diagnostic push") _Pragma("GCC diagnostic ignored \"-Wdeprecated-declarations\"")
-    #define SY_SUPPRESS_DEPRECATED_END _Pragma("GCC diagnostic pop")
+    #define APR_SUPPRESS_DEPRECATED_END _Pragma("GCC diagnostic pop")
 #else
-    #define SY_SUPPRESS_DEPRECATED_BEGIN
-    #define SY_SUPPRESS_DEPRECATED_END
+    #define APR_SUPPRESS_DEPRECATED_BEGIN
+    #define APR_SUPPRESS_DEPRECATED_END
 #endif
 
 namespace Ut

@@ -12,16 +12,16 @@
 #include <QStandardPaths>
 
 /// 应用名称常量（唯一路径控制源）
-static const QString kAppName = QStringLiteral("SanYiCAD");
+static const QString kAppName = QStringLiteral("April");
 
 /**
  * @brief 获取应用程序本地数据根目录（唯一路径控制源）
  *
  * 所有应用数据（配置、日志、崩溃dump）都从这个目录派生。
  *
- * Windows: C:/Users/<user>/AppData/Local/SanYiCAD/
- * macOS:   ~/Library/Application Support/SanYiCAD/
- * Linux:   ~/.local/share/SanYiCAD/
+ * Windows: C:/Users/<user>/AppData/Local/April/
+ * macOS:   ~/Library/Application Support/April/
+ * Linux:   ~/.local/share/April/
  */
 QString AppPathManager::appLocalDataDir()
 {

@@ -14,9 +14,9 @@ class UTILITY_API AppPathManager
 {
 public:
     /// 获取应用程序本地数据根目录（唯一路径控制源）
-    /// Windows: C:/Users/<user>/AppData/Local/SanYiCAD/
-    /// macOS:   ~/Library/Application Support/SanYiCAD/
-    /// Linux:   ~/.local/share/SanYiCAD/
+    /// Windows: C:/Users/<user>/AppData/Local/April/
+    /// macOS:   ~/Library/Application Support/April/
+    /// Linux:   ~/.local/share/April/
     static QString appLocalDataDir();
 
     static QString configDir();

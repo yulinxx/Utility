@@ -13,11 +13,11 @@ set(VERSION_PATCH 0)
 set(PROJECT_VERSION "${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}")
 
 # --- 路径 ---
-if(NOT SANYI_ROOT)
-    get_filename_component(SANYI_ROOT "${CMAKE_CURRENT_SOURCE_DIR}/../.." ABSOLUTE)
+if(NOT APR_ROOT)
+    get_filename_component(APR_ROOT "${CMAKE_CURRENT_SOURCE_DIR}/../.." ABSOLUTE)
 endif()
-include("${SANYI_ROOT}/CMake/SanYiPaths.cmake")
-include("${SANYI_ROOT}/CMake/Utils.cmake")
+include("${APR_ROOT}/CMake/AprPaths.cmake")
+include("${APR_ROOT}/CMake/Utils.cmake")
 
 # --- 源文件 ---
 file(GLOB_RECURSE LIB_SOURCES CONFIGURE_DEPENDS
@@ -30,8 +30,8 @@ file(GLOB_RECURSE LIB_HEADERS CONFIGURE_DEPENDS
     "${CMAKE_CURRENT_SOURCE_DIR}/Include/*.h"
     "${CMAKE_CURRENT_SOURCE_DIR}/Include/*.hpp"
 )
-list(FILTER LIB_SOURCES EXCLUDE REGEX "${SANYI_SOURCE_EXCLUDE_REGEX}")
-list(FILTER LIB_HEADERS EXCLUDE REGEX "${SANYI_HEADER_EXCLUDE_REGEX}")
+list(FILTER LIB_SOURCES EXCLUDE REGEX "${APR_SOURCE_EXCLUDE_REGEX}")
+list(FILTER LIB_HEADERS EXCLUDE REGEX "${APR_HEADER_EXCLUDE_REGEX}")
 
 find_path(BSHOSHANY_THREAD_POOL_INCLUDE_DIRS "BS_thread_pool.hpp")
 find_package(Threads REQUIRED)
@@ -47,7 +47,7 @@ list(FILTER UTILITY_PUBLIC_INCLUDE_DIRS EXCLUDE REGEX "\\.(h|hpp|inl|inc)$")
 list(PREPEND UTILITY_PUBLIC_INCLUDE_DIRS "${CMAKE_CURRENT_SOURCE_DIR}/Include")
 
 # --- 统一入口创建 DLL ---
-sanyi_add_shared_library(${LIB_NAME}
+apr_add_shared_library(${LIB_NAME}
     FOLDER "${LIB_FOLDER}"
     DESCRIPTION "${LIB_DESCRIPTION}"
     EXPORT_MACRO "${LIB_EXPORT_MACRO}"
@@ -84,7 +84,7 @@ PROPERTIES
 )
 
 
-sanyi_module_tests_enabled(UTILITY _utility_tests)
+apr_module_tests_enabled(UTILITY _utility_tests)
 if(_utility_tests)
     enable_testing()
     find_package(GTest CONFIG REQUIRED)
@@ -97,7 +97,7 @@ message(STATUS "  Platform: ${CMAKE_SYSTEM_NAME}(${CMAKE_SYSTEM_PROCESSOR})")
 message(STATUS "  Build Type: ${CMAKE_BUILD_TYPE}")
 message(STATUS "----------------------------------------")
 
-sanyi_export_imported_target(${LIB_NAME}
+apr_export_imported_target(${LIB_NAME}
     LIB_NAME "${LIB_NAME}"
     PUBLIC_INCLUDE_DIRS
         ${UTILITY_PUBLIC_INCLUDE_DIRS}

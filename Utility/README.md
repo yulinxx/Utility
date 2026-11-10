@@ -1,6 +1,6 @@
 # Utility Library (Utility.dll)
 
-> **SanYi CAD 核心工具库** — 提供数学运算（向量、矩阵）、颜色、边界框等基础数据结构和算法。
+> **April CAD 核心工具库** — 提供数学运算（向量、矩阵）、颜色、边界框等基础数据结构和算法。
 
 ---
 
@@ -35,7 +35,7 @@
 
 ## 功能描述
 
-Utility 库是 SanYi CAD 项目的核心基础模块，提供了 CAD 系统中最常用的基础数据结构和算法：
+Utility 库是 April CAD 项目的核心基础模块，提供了 CAD 系统中最常用的基础数据结构和算法：
 
 - **向量运算**：二维、三维、四维向量的完整算术运算、点积、叉积、归一化、投影、反射、插值等
 - **矩阵运算**：3x3 和 4x4 矩阵，支持平移、旋转、缩放、镜像、投影等 2D/3D 变换
@@ -328,7 +328,7 @@ vcpkg install bshoshany-thread-pool:arm64-osx
 
 ```json
 {
-  "name": "sanyi-cad",
+  "name": "apr-cad",
   "version-string": "1.0.0",
   "dependencies": [
     "bshoshany-thread-pool"
@@ -381,7 +381,7 @@ target_link_libraries(YourTarget PRIVATE Utility)
 | 变量 | 类型 | 默认值 | 说明 |
 |------|------|--------|------|
 | `BUILD_TESTS` | `option` | `ON` | 全工程唯一测试开关（GTest 缺失时自动降级 OFF） |
-| `SANYI_ROOT` | `PATH` | 自动检测 | SanYi 项目根目录 |
+| `APR_ROOT` | `PATH` | 自动检测 | April 项目根目录 |
 
 #### 编译特性
 
@@ -555,8 +555,8 @@ cmake .. -DBSHOSHANY_THREAD_POOL_INCLUDE_DIRS="/path/to/thread-pool/header"
 - **构建类型**：Shared Library (DLL)
 - **导出宏**：`UTILITY_API`
 - **模板实例化宏**：`UT_EXTERN_TEMPLATE`
-- **项目**：SanYi CAD — Core Utility Library
+- **项目**：April CAD — Core Utility Library
 
 ---
 
-*© SanYi CAD Project*
+*© April CAD Project*

@@ -6,7 +6,7 @@
 
 // ============================================================
 //  Utility 使用示例
-//  编译后执行 SyUtilityExample.exe
+//  编译后执行 AprUtilityExample.exe
 //
 //  演示：
 //    1. Ut::FileUtils —— UTF-8 与 filesystem::path 的跨平台转换
@@ -15,7 +15,7 @@
 
 int main()
 {
-    std::cout << "=== SyUtilityExample ===" << std::endl;
+    std::cout << "=== AprUtilityExample ===" << std::endl;
 
     // ---- 1. FileUtils：UTF-8 <-> path 往返 --------------------------------
     const std::filesystem::path original = Ut::FileUtils::utf8ToPath(u8"图纸/示例.dxf");
