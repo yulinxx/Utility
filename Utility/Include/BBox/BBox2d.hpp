@@ -1,5 +1,15 @@
 #pragma once
 
+// 防御 windows.h 的 min/max 宏污染：本头使用 Vec<T,2>::min/max 与 std::min/max，
+// 若上游已引入 windows.h 且未定义 NOMINMAX，这些名字会被宏展开导致编译失败。
+// 公共头应自防御，而不是要求每个包含方都记得加 NOMINMAX（与 Ut/Def.h 的处理一致）。
+#ifdef min
+#undef min
+#endif
+#ifdef max
+#undef max
+#endif
+
 #include "UtilityAPI.h"
 #include "Vec/Vec.hpp"
 
